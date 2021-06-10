@@ -82,7 +82,7 @@ class _DictionaryPage extends React.Component<PageProps, State> {
     if (newSearch) {
       const re = new RegExp(`.*${this.props.match.params.keyword}.*`);
       this.filteredData = Globals.dictItems.filter((dictItem) =>
-        re.test(dictItem.中文品名) || re.test(dictItem.英文品名) || re.test(dictItem.通關簽審文件編號) || re.test(dictItem.製造商名稱) || re.test(dictItem.主成分略述)
+      dictItem.通關簽審文件編號 != null && (re.test(dictItem.中文品名) || re.test(dictItem.英文品名) || re.test(dictItem.通關簽審文件編號) || re.test(dictItem.製造商名稱) || re.test(dictItem.主成分略述))
       );
       this.page = 0;
     }
@@ -91,12 +91,11 @@ class _DictionaryPage extends React.Component<PageProps, State> {
 
     const searches = this.filteredData.slice(this.page * this.rows, (this.page + 1) * this.rows);
 
+    this.page += 1;
     this.setState({
       fetchError: false, isLoading: false, searches: newSearch ? searches : [...this.state.searches, ...searches],
       isScrollOn: this.state.searches.length < this.filteredData.length,
     });
-
-    this.page += 1;
 
     if (newSearch) {
       this.props.dictionaryHistory.unshift(keyword);
@@ -135,8 +134,8 @@ class _DictionaryPage extends React.Component<PageProps, State> {
 
   render() {
     if (!this.props.loadingTwdData) {
-      if (this.props.match.params.keyword != null) {
-        if (this.state.searches.length === 0) {
+      if (this.props.match.params.keyword != null && this.props.match.params.keyword === this.state.keyword) {
+        if (this.state.searches.length === 0 && this.page === 0) {
           this.search(this.props.match.params.keyword, true);
         }
       }
@@ -178,9 +177,9 @@ class _DictionaryPage extends React.Component<PageProps, State> {
                 this.setState({ searches: [] });
               } else if (ev.key === 'Enter') {
                 if (value === this.props.match.params.keyword) {
-                  this.setState({ keyword: value });
                   this.search(value, true);
                 } else {
+                  this.setState({ searches: [] });
                   this.props.history.push(`/dictionary/search/${value}`);
                 }
               }
@@ -193,7 +192,7 @@ class _DictionaryPage extends React.Component<PageProps, State> {
               message={'載入中...'}
             />
             :
-            this.state.searches.length < 1 || (this.props.dictionaryHistory.length > 0 && (this.state.keyword === '' || this.state.keyword === undefined)) ?
+            this.props.match.params.keyword == null || this.state.searches.length < 1 || (this.props.dictionaryHistory.length > 0 && (this.state.keyword === '' || this.state.keyword === undefined)) ?
               <>
                 <div className='uiFont' style={{ color: 'var(--ion-color-primary)' }}>搜尋歷史</div>
                 <IonList>
