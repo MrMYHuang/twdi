@@ -180,6 +180,7 @@ class _DictionaryPage extends React.Component<PageProps, State> {
                   this.search(value, true);
                 } else {
                   this.setState({ searches: [] });
+                  this.page = 0;
                   this.props.history.push(`/dictionary/search/${value}`);
                 }
               }
