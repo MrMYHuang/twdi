@@ -1,4 +1,4 @@
-# 台灣藥品資訊
+# 台灣藥品資訊(Taiwan Drug Info)
 
 ## <a id='feature'>特色</a>
 
@@ -18,7 +18,7 @@
 * 離線瀏覽
 * 佈景主題切換
 * 字型調整
-  1. 考量視力不佳的使用者，提供最大128 px的經文字型設定。若有需要更大字型，請E-mail或GitHub聯絡開發者新增。
+  1. 考量視力不佳的使用者，提供最大128 px的字型設定。若有需要更大字型，請E-mail或GitHub聯絡開發者新增。
 
 * App更新
 
@@ -39,7 +39,7 @@
 * Android 9 + Chrome
 * macOS 11 + Chrome
 * iPad 7 + Safari
-* iPhone 8 (模擬器) + Safari
+* iPhone 8 + Safari
 * Debian Linux 10 + Chrome
 
 非上述環境仍可嘗試使用此app。若有<a href='#knownIssues'>已知問題</a>未描述的問題，可用<a href='#report'>異常回報</a>功能。
@@ -69,6 +69,7 @@ https://MrRogerHuang.github.io
 
 #### Windows, macOS, Linux, Android - 使用Chrome安裝
 使用Chrome瀏覧器（建議最新版）開啟上述PWA網址後，網址列會出現一個加號，如圖所示：
+
 <img src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/ChromeInstall.png' width='50%' />
 
 點擊它，以完成安裝。安裝完後會在桌面出現"台灣藥品"app圖示。
