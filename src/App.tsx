@@ -16,9 +16,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import { connect, Provider } from 'react-redux';
 import queryString from 'query-string';
 import getSavedStore from './redux/store';
-import { bookmark, settings, book, search } from 'ionicons/icons';
-import { DownloaderHelper, Stats } from 'node-downloader-helper';
-import * as AdmZip from 'adm-zip';
+import { bookmark, settings, search } from 'ionicons/icons';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -226,43 +224,18 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
     try {
       twdData = await Globals.getFileFromIndexedDB(Globals.twdDataKey);
     } catch (err) {
-      twdData = await this.downloadTwdData();
+      this.setState({ downloadModal: { show: true, progress: 0 } });
+      twdData = await Globals.downloadTwdData((progress: number) => {
+        this.setState({ downloadModal: { show: true, progress: progress } });
+      });
+      this.setState({ downloadModal: { show: false, progress: 100 }, showDataDownloadEndAlert: true });
+      Globals.saveFileToIndexedDB(Globals.twdDataKey, twdData);
     }
     Globals.dictItems = twdData;
     store.dispatch({
       type: "TMP_SET_KEY_VAL",
       key: 'loadingTwdData',
       val: false,
-    });
-  }
-
-  async downloadTwdData() {
-    return new Promise((ok, fail) => {
-      let twdData: any;
-      const dl = new DownloaderHelper(Globals.twdDataUrl, '.');
-      this.setState({ downloadModal: { show: true, progress: 0 } });
-      let progressUpdateEnable = true;
-      dl.on('progress', (stats: Stats) => {
-        if (progressUpdateEnable) {
-          // Reduce number of this calls by progressUpdateEnable.
-          // Too many of this calls could result in 'end' event callback is executed before 'progress' event callbacks!
-          this.setState({ downloadModal: { show: true, progress: stats.progress / 100 } });
-          progressUpdateEnable = false;
-          setTimeout(() => {
-            progressUpdateEnable = true;
-          }, 100);
-        }
-      });
-      dl.on('end', (downloadInfo: any) => {
-        dl.removeAllListeners();
-        const zip = new AdmZip.default(downloadInfo.filePath);
-        const zipEntry = zip.getEntries()[0];
-        twdData = JSON.parse(zipEntry.getData().toString("utf8"));
-        Globals.saveFileToIndexedDB(Globals.twdDataKey, twdData);
-        ok(twdData);
-        this.setState({ downloadModal: { show: false, progress: this.state.downloadModal.progress }, showDataDownloadEndAlert: true });
-      });
-      dl.start();
     });
   }
 

@@ -1,9 +1,9 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonToolbar, withIonLifeCycle, IonButton, IonIcon, IonPopover, IonList, IonItem, IonLabel, IonLoading, IonToast, IonTitle } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonToolbar, withIonLifeCycle, IonButton, IonIcon, IonList, IonItem, IonLabel, IonLoading, IonToast, IonTitle } from '@ionic/react';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Globals from '../Globals';
-import { home, shareSocial, book, ellipsisHorizontal, ellipsisVertical, arrowBack, bookmark } from 'ionicons/icons';
+import { shareSocial, arrowBack, bookmark } from 'ionicons/icons';
 import { Bookmark } from '../models/Bookmark';
 import { DictItem } from '../models/DictItem';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonRange, IonIcon, IonLabel, IonToggle, IonButton, IonAlert, IonSelect, IonSelectOption, IonToast, withIonLifeCycle } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonRange, IonIcon, IonLabel, IonToggle, IonButton, IonAlert, IonSelect, IonSelectOption, IonToast, withIonLifeCycle, IonProgressBar } from '@ionic/react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import Globals from '../Globals';
@@ -10,7 +10,8 @@ import { Bookmark, } from '../models/Bookmark';
 
 interface StateProps {
   showFontLicense: boolean;
-  showUpdateAllJuansDone: boolean;
+  twdDataDownloadRatio: number;
+  showUpdateDrugDataDone: boolean;
   showClearAlert: boolean;
   showToast: boolean;
   toastMessage: string;
@@ -41,7 +42,8 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
 
     this.state = {
       showFontLicense: false,
-      showUpdateAllJuansDone: false,
+      twdDataDownloadRatio: 0,
+      showUpdateDrugDataDone: false,
       showClearAlert: false,
       showToast: false,
       toastMessage: '',
@@ -61,8 +63,13 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
     return;
   }
 
-  async updateAllJuans() {
-
+  async updateDrugData() {
+    this.setState({twdDataDownloadRatio: 0});
+    const twdData = await Globals.downloadTwdData((progress: number) => {
+      this.setState({twdDataDownloadRatio: progress / 100});
+    });
+    Globals.saveFileToIndexedDB(Globals.twdDataKey, twdData);
+    this.setState({ twdDataDownloadRatio: 1, showUpdateDrugDataDone: true });
   }
 
   render() {
@@ -130,9 +137,8 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                 window.open(`mailto:myh@live.com?subject=台灣藥品異常記錄回報&body=${encodeURIComponent("問題描述(建議填寫)：\n\n瀏覽器：" + navigator.userAgent + "\n\nApp版本：" + PackageInfos.pwaVersion + "\n\nApp設定：" + JSON.stringify(this.props.settings) + "\n\nLog：\n" + Globals.getLog())}`);
               }}>回報</IonButton>
             </IonItem>
-            {/*
             <IonItem>
-              <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. * /}
+              <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
               <IonIcon icon={download} slot='start' />
               <div className='contentBlock'>
                 <div style={{ flexDirection: 'column' }}>
@@ -154,7 +160,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                         JSON.parse(fileText);
                         localStorage.setItem('Settings.json', fileText);
                         this.props.dispatch({ type: 'LOAD_SETTINGS' });
-                        this.updateAllJuans();
+                        this.updateDrugData();
                       } catch (e) {
                         console.error(e);
                         console.error(new Error().stack);
@@ -164,8 +170,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
 
                     <IonButton fill='outline' shape='round' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={(e) => {
                       (document.querySelector('#importJsonInput') as HTMLInputElement).click();
-                    }}>匯入</IonButton
-                    >
+                    }}>匯入</IonButton>
                     <IonButton fill='outline' shape='round' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={(e) => {
                       this.setState({ showClearAlert: true });
                     }}>重置</IonButton>
@@ -175,7 +180,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                       backdropDismiss={false}
                       onDidPresent={(ev) => {
                       }}
-                      header={'重置會還原app設定預設值並清除書籤、字型檔！確定重置？'}
+                      header={'重置會還原app設定預設值並清除書籤、離線資料檔！確定重置？'}
                       buttons={[
                         {
                           text: '取消',
@@ -206,21 +211,21 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
               </div>
             </IonItem>
             <IonItem>
-              <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. * /}
+              <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
               <IonIcon icon={refreshCircle} slot='start' />
               <div style={{ width: '100%' }}>
                 <IonLabel className='ion-text-wrap uiFont'>更新離線藥品資料</IonLabel>
+                <IonProgressBar value={this.state.twdDataDownloadRatio} />
               </div>
-              <IonButton fill='outline' shape='round' slot='end' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={async (e) => this.updateAllJuans()}>更新</IonButton>
+              <IonButton fill='outline' shape='round' slot='end' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={async (e) => this.updateDrugData()}>更新</IonButton>
               <IonToast
                 cssClass='uiFont'
-                isOpen={this.state.showUpdateAllJuansDone}
-                onDidDismiss={() => this.setState({ showUpdateAllJuansDone: false })}
-                message={`離線經文檔更新完畢！`}
+                isOpen={this.state.showUpdateDrugDataDone}
+                onDidDismiss={() => this.setState({ showUpdateDrugDataDone: false })}
+                message={`離線藥品資料更新完畢！`}
                 duration={2000}
               />
             </IonItem>
-            */}
             <IonItem>
               <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
               <IonIcon icon={colorPalette} slot='start' />

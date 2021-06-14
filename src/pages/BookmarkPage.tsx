@@ -140,13 +140,13 @@ class _BookmarkPage extends React.Component<PageProps, State> {
                   {rows}
                 </IonReorderGroup>
               </IonList>
-              {/*helpDoc*/}
+              {helpDoc}
             </> :
             <>
               <IonList key='bookmarkList1'>
                 {rows}
               </IonList>
-              {/*helpDoc*/}
+              {helpDoc}
             </>
           }
 

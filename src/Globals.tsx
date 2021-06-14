@@ -1,4 +1,6 @@
 import { isPlatform, IonLabel } from '@ionic/react';
+import * as AdmZip from 'adm-zip';
+import { DownloaderHelper, Stats } from 'node-downloader-helper';
 import { DictItem } from './models/DictItem';
 
 const twdDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/全部藥品許可證資料集.zip`;
@@ -7,6 +9,33 @@ const twdDataKey = 'twdData';
 let log = '';
 
 var dictItems: Array<DictItem> = [];
+
+async function downloadTwdData(progressCallback: Function) {
+  return new Promise((ok, fail) => {
+    let twdData: any;
+    const dl = new DownloaderHelper(Globals.twdDataUrl, '.');
+    let progressUpdateEnable = true;
+    dl.on('progress', (stats: Stats) => {
+      if (progressUpdateEnable) {
+        // Reduce number of this calls by progressUpdateEnable.
+        // Too many of this calls could result in 'end' event callback is executed before 'progress' event callbacks!
+        progressCallback(stats.progress);
+        progressUpdateEnable = false;
+        setTimeout(() => {
+          progressUpdateEnable = true;
+        }, 100);
+      }
+    });
+    dl.on('end', (downloadInfo: any) => {
+      dl.removeAllListeners();
+      const zip = new AdmZip.default(downloadInfo.filePath);
+      const zipEntry = zip.getEntries()[0];
+      twdData = JSON.parse(zipEntry.getData().toString("utf8"));
+      ok(twdData);
+    });
+    dl.start();
+  });
+}
 
 function getFileName(work: string, juan: string) {
   return `${work}_juan${juan}.html`;
@@ -167,6 +196,7 @@ const Globals = {
   storeFile: 'Settings.json',
   fontSizeNorm: 24,
   fontSizeLarge: 48,
+  downloadTwdData,
   getLog,
   enableAppLog,
   disableAppLog,
