@@ -32,8 +32,9 @@ class _DownloadModal extends React.Component<PageProps, State> {
       >
         <IonContent>
           <div style={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'center' }}>
-              <IonLabel className='uiFont'>App 初始化</IonLabel>
               <IonLabel className='uiFont'>離線藥品資料下載中，請等待。</IonLabel>
+              <IonProgressBar style={{ height: '40px' }} value={this.props.progress} />
+              <IonLabel className='uiFont'>{Math.floor(this.props.progress * 100)}%</IonLabel>
           </div>
         </IonContent>
       </IonModal>

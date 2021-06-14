@@ -16,7 +16,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import { connect, Provider } from 'react-redux';
 import queryString from 'query-string';
 import getSavedStore from './redux/store';
-import { bookmark, settings, book } from 'ionicons/icons';
+import { bookmark, settings, book, search } from 'ionicons/icons';
 import { DownloaderHelper, Stats } from 'node-downloader-helper';
 import * as AdmZip from 'adm-zip';
 
@@ -333,7 +333,7 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
                 <IonIcon icon={bookmark} />
               </IonTabButton>
               <IonTabButton tab="dictionay" href="/dictionary/search">
-                <IonIcon icon={book} />
+                <IonIcon icon={search} />
               </IonTabButton>
               <IonTabButton tab="settings" href="/settings">
                 <IonIcon icon={settings} />

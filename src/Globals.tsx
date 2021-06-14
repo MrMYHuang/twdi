@@ -3,7 +3,7 @@ import { DictItem } from './models/DictItem';
 
 const twdDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/全部藥品許可證資料集.zip`;
 const twdiDb = 'twdiDb';
-const twdDataKey = 'twKaiFont';
+const twdDataKey = 'twdData';
 let log = '';
 
 var dictItems: Array<DictItem> = [];
