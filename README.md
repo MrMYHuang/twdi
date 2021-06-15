@@ -9,6 +9,8 @@
 台灣藥品資訊 (Taiwan Drug Info)，簡寫twdi，使用台灣政府開放資料之《全部藥品許可證資料集》，支援以下功能
 
 * <a id='search'>搜尋藥品</a>
+  1. 西藥
+  2. 中藥
 * <a id='bookmark'>書籤</a>
 * <a id='shareAppLink'>網址分享</a>
   1. 用瀏覽器開啟此app並開啟某藥品後，可複製其網址分享給別人開啟。
@@ -20,7 +22,7 @@
 * 字型調整
   1. 考量視力不佳的使用者，提供最大128 px的字型設定。若有需要更大字型，請E-mail或GitHub聯絡開發者新增。
 * <a id='shortcuts'>App捷徑</a>
-  1. Windows, Android的Chrome(建議最新版)使用者，滑鼠右鍵或長按app圖示，可存取app功能捷徑，目前有：搜尋藥品、(開啟)第1書籤。
+  1. Windows, Android的Chrome(建議最新版)使用者，滑鼠右鍵或長按app圖示，可存取app功能捷徑，目前有：搜尋西藥、搜尋中藥、(開啟)第1書籤。
   2. 不支援由Microsoft Store或Google Play Store下載的PWA!
 
   <img src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/AppShortcuts.png' width='50%' />
