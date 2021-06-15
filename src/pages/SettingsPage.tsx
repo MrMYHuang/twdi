@@ -64,11 +64,14 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
   }
 
   async updateDrugData() {
-    this.setState({twdDataDownloadRatio: 0});
-    const twdData = await Globals.downloadTwdData((progress: number) => {
-      this.setState({twdDataDownloadRatio: progress / 100});
-    });
-    Globals.saveFileToIndexedDB(Globals.twdDataKey, twdData);
+    this.setState({ twdDataDownloadRatio: 0 });
+    for (let i = 0; i < Globals.durgResources.length; i++) {
+      let item = Globals.durgResources[i];
+      const twdData = await Globals.downloadTwdData(item.url, (progress: number) => {
+        this.setState({ twdDataDownloadRatio: i / Globals.durgResources.length + progress / 100 });
+      });
+      Globals.saveFileToIndexedDB(item.dataKey, twdData);
+    }
     this.setState({ twdDataDownloadRatio: 1, showUpdateDrugDataDone: true });
   }
 

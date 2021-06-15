@@ -6,6 +6,7 @@ import Globals from '../Globals';
 import { shareSocial, arrowBack, bookmark } from 'ionicons/icons';
 import { Bookmark } from '../models/Bookmark';
 import { DictItem } from '../models/DictItem';
+import { ChineseHerbItem } from '../models/ChineseHerbItem';
 
 interface Props {
   dispatch: Function;
@@ -13,14 +14,15 @@ interface Props {
 }
 
 interface PageProps extends Props, RouteComponentProps<{
-  tab: string;
   path: string;
+  tab: string;
+  mode: string;
   keyword: string;
 }> { }
 
 interface State {
   keyword: string;
-  search: DictItem | null;
+  search: DictItem | ChineseHerbItem | null;
   showNoSelectedTextAlert: boolean;
   popover: any;
   showToast: boolean;
@@ -43,13 +45,16 @@ class _DrugPage extends React.Component<PageProps, State> {
     }
   }
 
+  mode = '';
   ionViewWillEnter() {
     //console.log( 'view will enter' );
     //console.log(this.props.match.url);
     //console.log(this.props.history.length);
+    this.mode = this.props.match.params.mode;
     if (this.props.match.params.keyword) {
       this.setState({ keyword: this.props.match.params.keyword });
     }
+    this.lookupDict(this.props.match.params.keyword);
   }
 
   componentDidMount() {
@@ -64,55 +69,51 @@ class _DrugPage extends React.Component<PageProps, State> {
   }
 
   async lookupDict(keyword: string) {
-    const res = Globals.dictItems.find((dictItem) => dictItem.通關簽審文件編號 === keyword) || null;
+    const chineseHerbIdPattern = new RegExp(`.*${keyword}`)
+    const res = (this.mode !== 'chineseHerb' ? Globals.dictItems.find((dictItem) => dictItem.通關簽審文件編號 === keyword) : Globals.chineseHerbsItems.find((dictItem) => chineseHerbIdPattern.test(dictItem.許可證字號))) || null;
     this.setState({ search: res });
   }
 
   addBookmarkHandler() {
-    const drugId = this.state.search!.通關簽審文件編號;
+    const search = this.state.search!;
+    const drugId = this.mode !== 'chineseHerb' ? (search as DictItem).通關簽審文件編號 : (search as ChineseHerbItem).許可證字號;
+    const name = this.mode !== 'chineseHerb' ? (search as DictItem).中文品名 : (search as ChineseHerbItem).藥品名稱;
     this.props.dispatch({
       type: "ADD_BOOKMARK",
       bookmark: new Bookmark({
         uuid: drugId,
-        中文品名: this.state.search!.中文品名,
+        中文品名: name,
+        isChineseHerb: this.mode === 'chineseHerb'
       }),
     });
     this.setState({ showToast: true, toastMessage: '書籤新增成功！' });
     return;
   }
 
-  getSelectedString() {
-    const sel = document.getSelection();
-    if ((sel?.rangeCount || 0) > 0 && sel!.getRangeAt(0).toString().length > 0) {
-      return sel!.getRangeAt(0).toString();
-    } else {
-      return '';
-    }
-  }
-
-  selectedTextBeforeIonPopover = '';
+  loadingTwdDataOld = true;
   render() {
-
-    if (!this.props.loadingTwdData && this.state.search == null) {
+    if (this.loadingTwdDataOld && !this.props.loadingTwdData) {
       this.lookupDict(this.props.match.params.keyword);
     }
+    this.loadingTwdDataOld = this.props.loadingTwdData;
 
     let dictView: any = [];
     if (this.props.match.params.keyword && this.state.search != null) {
       const search = this.state.search!;
-      DictItem.sortedKeys.forEach((key, index) => {
+      (this.mode !== 'chineseHerb' ? DictItem : ChineseHerbItem).sortedKeys.forEach((key, index) => {
         const value = (search as any)[key];
-        dictView.push(<IonItem key={`contentItem` + index}
-          onClick={async event => {
-            event.preventDefault();
-            Globals.copyToClipboard(value);
-            this.setState({ showToast: true, toastMessage: `複製"${key}"成功` })
-          }}>
-          <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
-          <IonLabel className='ion-text-wrap textFont' key={`contentItemlabel_` + index}>
-            {key}: {value}
-          </IonLabel>
-        </IonItem>
+        dictView.push(
+          <IonItem button={true} key={`contentItem` + index}
+            onClick={async event => {
+              event.preventDefault();
+              Globals.copyToClipboard(value);
+              this.setState({ showToast: true, toastMessage: `複製"${key}"成功` })
+            }}>
+            <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
+            <IonLabel className='ion-text-wrap textFont' key={`contentItemlabel_` + index}>
+              {key}: {value}
+            </IonLabel>
+          </IonItem>
         )
       });
     }

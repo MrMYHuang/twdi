@@ -45,7 +45,7 @@ class _BookmarkPage extends React.Component<PageProps, State> {
     let queryParams = queryString.parse(this.props.location.search) as any;
     if (queryParams.item && queryParams.item < this.props.bookmarks.length) {
       const bookmark = this.props.bookmarks[queryParams.item];
-      this.props.history.push(`/dictionary/drug/${bookmark.uuid}`);
+      this.props.history.push(`/dictionary/${bookmark.isChineseHerb ? 'chineseHerb' : 'drug'}/${bookmark.uuid}`);
     } else if (!this.hasBookmark) {
       this.setState({ showToast: true, toastMessage: '無書籤！請搜尋藥品並加至書籤。' });
       this.props.history.push(`/dictionary/search`);
@@ -83,7 +83,7 @@ class _BookmarkPage extends React.Component<PageProps, State> {
     bookmarks.forEach((bookmark, i) => {
       let routeLink = ``;
       let label = `${bookmark.中文品名}`;
-      routeLink = `/dictionary/drug/${bookmark.uuid}`;
+      routeLink = `/dictionary/${bookmark.isChineseHerb ? 'chineseHerb' : 'drug'}/${bookmark.uuid}`;
       rows.push(
         <IonItemSliding key={`bookmarkItemSliding_` + i}>
           <IonItem key={`bookmarkItem_` + i} button={true} onClick={async event => {

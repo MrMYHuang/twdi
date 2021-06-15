@@ -221,17 +221,25 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
       val: true,
     });
     let twdData: any;
-    try {
-      twdData = await Globals.getFileFromIndexedDB(Globals.twdDataKey);
-    } catch (err) {
-      this.setState({ downloadModal: { show: true, progress: 0 } });
-      twdData = await Globals.downloadTwdData((progress: number) => {
-        this.setState({ downloadModal: { show: true, progress: progress } });
-      });
-      this.setState({ downloadModal: { show: false, progress: 100 }, showDataDownloadEndAlert: true });
-      Globals.saveFileToIndexedDB(Globals.twdDataKey, twdData);
+    for (let i = 0; i < Globals.durgResources.length; i++) {
+      let item = Globals.durgResources[i];
+      try {
+        twdData = await Globals.getFileFromIndexedDB(item.dataKey);
+      } catch (err) {
+        this.setState({ downloadModal: { item: item.item, show: true, progress: 0 } });
+        twdData = await Globals.downloadTwdData(item.url, (progress: number) => {
+          this.setState({ downloadModal: { show: true, progress: progress } });
+        });
+        this.setState({ downloadModal: { show: false, progress: 100 } });
+        Globals.saveFileToIndexedDB(item.dataKey, twdData);
+      }
+
+      if (i === 0) {
+        Globals.dictItems = twdData;
+      } else {
+        Globals.chineseHerbsItems = twdData;
+      }
     }
-    Globals.dictItems = twdData;
     store.dispatch({
       type: "TMP_SET_KEY_VAL",
       key: 'loadingTwdData',
@@ -296,8 +304,10 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
             <IonRouterOutlet animated={false}>
               {/* The following route is for backward compatibility. */}
               <Route path="/:tab(bookmarks)" render={(props: any) => <BookmarkPage {...props} />} exact={true} />
-              <Route path={`/:tab(dictionary)/search/:keyword?`} render={(props: any) => <DictionaryPage {...props} />} exact={true} />
-              <Route path={`/:tab(dictionary)/drug/:keyword?`} render={(props: any) => <DrugPage {...props} />} exact={true} />
+              <Route path={`/:tab(dictionary)/:mode(search)/:keyword?`} render={(props: any) => <DictionaryPage {...props} />} exact={true} />
+              <Route path={`/:tab(dictionary)/:mode(searchCH)/:keyword?`} render={(props: any) => <DictionaryPage {...props} />} exact={true} />
+              <Route path={`/:tab(dictionary)/:mode(drug)/:keyword?`} render={(props: any) => <DrugPage {...props} />} exact={true} />
+              <Route path={`/:tab(dictionary)/:mode(chineseHerb)/:keyword?`} render={(props: any) => <DrugPage {...props} />} exact={true} />
               <Route path="/settings" render={(props: any) => <SettingsPage {...props} />} />
               <Route path="/" render={() => { return this.routeByQueryString(); }} exact={true} />
             </IonRouterOutlet>
@@ -361,6 +371,7 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
 
         <DownloadModal
           {...{
+            item: this.state.downloadModal.item,
             progress: this.state.downloadModal.progress,
             showModal: this.state.downloadModal.show,
             ...this.props

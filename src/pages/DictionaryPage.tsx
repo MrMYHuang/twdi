@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Globals from '../Globals';
 import { shareSocial, arrowBack } from 'ionicons/icons';
 import { DictItem } from '../models/DictItem';
+import { ChineseHerbItem } from '../models/ChineseHerbItem';
 
 interface Props {
   dispatch: Function;
@@ -13,18 +14,18 @@ interface Props {
 }
 
 interface PageProps extends Props, RouteComponentProps<{
-  tab: string;
   path: string;
+  tab: string;
+  mode: string;
   keyword: string;
 }> { }
 
 interface State {
   keyword: string;
-  searches: Array<DictItem>;
+  searches: Array<DictItem | ChineseHerbItem>;
   showNoSelectedTextAlert: boolean;
   popover: any;
   isScrollOn: boolean;
-  isLoading: boolean;
   fetchError: boolean;
   showToast: boolean;
   toastMessage: string;
@@ -32,7 +33,7 @@ interface State {
 
 class _DictionaryPage extends React.Component<PageProps, State> {
   searchBarRef: React.RefObject<HTMLIonSearchbarElement>;
-  filteredData: Array<DictItem>;
+  filteredData: Array<DictItem | ChineseHerbItem>;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -44,7 +45,6 @@ class _DictionaryPage extends React.Component<PageProps, State> {
         event: null,
       },
       isScrollOn: false,
-      isLoading: false,
       fetchError: false,
       showToast: false,
       toastMessage: '',
@@ -53,10 +53,13 @@ class _DictionaryPage extends React.Component<PageProps, State> {
     this.filteredData = [];
   }
 
+  mode = '';
   ionViewWillEnter() {
     //console.log(`${this.props.match.url} will enter`);
+    this.mode = this.props.match.params.mode;
     const keyword = this.props.match.params.keyword;
     this.setState({ keyword: keyword });
+    this.search(true);
   }
 
   /*
@@ -78,12 +81,22 @@ class _DictionaryPage extends React.Component<PageProps, State> {
 
   page = 0;
   rows = 20;
-  async search(keyword: string, newSearch: boolean = false) {
+  async search(newSearch: boolean = false) {
+    if (this.props.match.params.keyword == null || this.props.match.params.keyword !== this.state.keyword) {
+      return;
+    }
+
     if (newSearch) {
       const re = new RegExp(`.*${this.props.match.params.keyword}.*`);
-      this.filteredData = Globals.dictItems.filter((dictItem) =>
-        dictItem.通關簽審文件編號 !== "null" && (re.test(dictItem.中文品名) || re.test(dictItem.英文品名) || re.test(dictItem.通關簽審文件編號) || re.test(dictItem.製造商名稱) || re.test(dictItem.主成分略述))
-      );
+      if (this.mode !== 'searchCH') {
+        this.filteredData = Globals.dictItems.filter((dictItem) =>
+          dictItem.通關簽審文件編號 !== "null" && (re.test(dictItem.中文品名) || re.test(dictItem.英文品名) || re.test(dictItem.通關簽審文件編號) || re.test(dictItem.製造商名稱) || re.test(dictItem.主成分略述))
+        );
+      } else {
+        this.filteredData = Globals.chineseHerbsItems.filter((dictItem) =>
+          (re.test(dictItem.藥品名稱) || re.test(dictItem.處方成分) || re.test(dictItem.許可證字號) || re.test(dictItem.製造商名稱))
+        );
+      }
       this.page = 0;
     }
 
@@ -93,12 +106,12 @@ class _DictionaryPage extends React.Component<PageProps, State> {
 
     this.page += 1;
     this.setState({
-      fetchError: false, isLoading: false, searches: newSearch ? searches : [...this.state.searches, ...searches],
+      fetchError: false, searches: newSearch ? searches : [...this.state.searches, ...searches],
       isScrollOn: this.state.searches.length < this.filteredData.length,
     });
 
     if (newSearch) {
-      this.props.dictionaryHistory.unshift(keyword);
+      this.props.dictionaryHistory.unshift(this.state.keyword);
       this.props.dictionaryHistory.splice(10);
       this.props.dispatch({
         type: "SET_KEY_VAL",
@@ -110,21 +123,21 @@ class _DictionaryPage extends React.Component<PageProps, State> {
   }
 
   getRows() {
-    const data = this.state.searches as [DictItem];
+    const data = this.state.searches;
     let rows = Array<object>();
-    data.forEach((item: DictItem, index: number) => {
-      const drugId = item.通關簽審文件編號;
+    data.forEach((item: DictItem | ChineseHerbItem, index: number) => {
+      const drugId = this.mode !== 'searchCH' ? (item as DictItem).通關簽審文件編號 : /[^\d]*(\d*)/.exec((item as ChineseHerbItem).許可證字號)![1];
       rows.push(
-        <IonItem key={`dictItem` + index}
+        <IonItem button={true} key={`dictItem` + index}
           onClick={async event => {
             event.preventDefault();
             this.props.history.push({
-              pathname: `/dictionary/drug/${drugId}`,
+              pathname: `/dictionary/${this.mode === 'searchCH' ? 'chineseHerb' : 'drug'}/${drugId}`,
             });
           }}>
           <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
           <IonLabel className='ion-text-wrap uiFont' key={`bookmarkItemLabel_` + index}>
-            {item.中文品名}
+            {this.mode !== 'searchCH' ? (item as DictItem).中文品名 : (item as ChineseHerbItem).藥品名稱}
           </IonLabel>
         </IonItem>
       );
@@ -132,14 +145,13 @@ class _DictionaryPage extends React.Component<PageProps, State> {
     return rows;
   }
 
+  loadingTwdDataOld = true;
   render() {
-    if (!this.props.loadingTwdData) {
-      if (this.props.match.params.keyword != null && this.props.match.params.keyword === this.state.keyword) {
-        if (this.state.searches.length === 0 && this.page === 0) {
-          this.search(this.props.match.params.keyword, true);
-        }
-      }
+    if (this.loadingTwdDataOld && !this.props.loadingTwdData) {
+      this.search(true);
     }
+
+    this.loadingTwdDataOld = this.props.loadingTwdData;
 
     return (
       <IonPage>
@@ -150,6 +162,14 @@ class _DictionaryPage extends React.Component<PageProps, State> {
             </IonButton>
 
             <IonTitle style={{ fontSize: 'var(--ui-font-size)' }}>搜尋藥品</IonTitle>
+
+            <IonButton fill='outline' shape='round' slot='start' onClick={ev => {
+              this.props.history.push({
+                pathname: `/dictionary/${this.mode === 'searchCH' ? 'search' : 'searchCH'}`,
+              });
+            }}>
+              <span className='uiFont'>{this.mode !== 'searchCH' ? '西藥' : '中藥'}</span>
+            </IonButton>
 
             <IonButton fill="clear" slot='end' onClick={e => {
               this.props.dispatch({
@@ -168,20 +188,21 @@ class _DictionaryPage extends React.Component<PageProps, State> {
         <IonContent>
           <IonSearchbar ref={this.searchBarRef} placeholder='按Enter鍵搜尋' value={this.state.keyword}
             onIonClear={ev => {
-              this.props.history.push(`/dictionary/search`);
+              this.props.history.push({
+                pathname: `/dictionary/${this.mode}`,
+              });
             }}
             onKeyUp={(ev: any) => {
               const value = ev.target.value;
               this.setState({ keyword: value })
               if (value === '') {
-                this.setState({ searches: [] });
               } else if (ev.key === 'Enter') {
                 if (value === this.props.match.params.keyword) {
-                  this.search(value, true);
+                  this.search(true);
                 } else {
-                  this.setState({ searches: [] });
-                  this.page = 0;
-                  this.props.history.push(`/dictionary/search/${value}`);
+                  this.props.history.push({
+                    pathname: `/dictionary/${this.mode}/${value}`,
+                  });
                 }
               }
             }}
@@ -202,11 +223,12 @@ class _DictionaryPage extends React.Component<PageProps, State> {
                     <IonItem key={`dictHistoryItem_${i}`} button={true} onClick={async event => {
                       if (keyword === this.props.match.params.keyword) {
                         this.setState({ keyword });
-                        this.search(keyword, true);
+                        this.search(true);
                       }
                       else {
-                        this.props.history.push(`/dictionary/search/${keyword}`);
-                        this.setState({ searches: [] });
+                        this.props.history.push({
+                          pathname: `/dictionary/${this.mode}/${keyword}`,
+                        });
                       }
                     }}>
                       <IonLabel className='ion-text-wrap uiFont' key={`dictHistoryLabel_` + i}>
@@ -227,13 +249,12 @@ class _DictionaryPage extends React.Component<PageProps, State> {
                 </div>
               </>
               :
-              <div style={{ display: 'table', tableLayout: 'fixed', width: '100%' }}>
                 <IonList>
                   {this.getRows()}
                   <IonInfiniteScroll threshold="100px"
                     disabled={!this.state.isScrollOn}
                     onIonInfinite={(ev: CustomEvent<void>) => {
-                      this.search(this.props.match.params.keyword);
+                      this.search();
                       (ev.target as HTMLIonInfiniteScrollElement).complete();
                     }}>
                     <IonInfiniteScrollContent
@@ -241,7 +262,6 @@ class _DictionaryPage extends React.Component<PageProps, State> {
                     </IonInfiniteScrollContent>
                   </IonInfiniteScroll>
                 </IonList>
-              </div>
           }
 
           <IonAlert
@@ -261,13 +281,6 @@ class _DictionaryPage extends React.Component<PageProps, State> {
                 },
               }
             ]}
-          />
-
-          <IonLoading
-            cssClass='uiFont'
-            isOpen={this.state.isLoading}
-            onDidDismiss={() => this.setState({ isLoading: false })}
-            message={'載入中...'}
           />
 
           <IonToast

@@ -1,19 +1,23 @@
 import { isPlatform, IonLabel } from '@ionic/react';
 import * as AdmZip from 'adm-zip';
 import { DownloaderHelper, Stats } from 'node-downloader-helper';
+import { ChineseHerbItem } from './models/ChineseHerbItem';
 import { DictItem } from './models/DictItem';
 
 const twdDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/全部藥品許可證資料集.zip`;
+const twchDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/中藥藥品許可證資料集.zip`;
 const twdiDb = 'twdiDb';
 const twdDataKey = 'twdData';
+const twchDataKey = 'twchData';
 let log = '';
 
 var dictItems: Array<DictItem> = [];
+var chineseHerbsItems: Array<ChineseHerbItem> = [];
 
-async function downloadTwdData(progressCallback: Function) {
+async function downloadTwdData(url: string, progressCallback: Function) {
   return new Promise((ok, fail) => {
     let twdData: any;
-    const dl = new DownloaderHelper(Globals.twdDataUrl, '.');
+    const dl = new DownloaderHelper(url, '.');
     let progressUpdateEnable = true;
     dl.on('progress', (stats: Stats) => {
       if (progressUpdateEnable) {
@@ -35,10 +39,6 @@ async function downloadTwdData(progressCallback: Function) {
     });
     dl.start();
   });
-}
-
-function getFileName(work: string, juan: string) {
-  return `${work}_juan${juan}.html`;
 }
 
 async function getFileFromIndexedDB(fileName: string) {
@@ -201,8 +201,10 @@ const Globals = {
   enableAppLog,
   disableAppLog,
   twdiDb,
-  twdDataUrl,
-  twdDataKey,
+  durgResources: [
+    { item: "離線西藥資料", dataKey: twdDataKey, url: twdDataUrl },
+    { item: "離線中藥資料", dataKey: twchDataKey, url: twchDataUrl },
+  ],
   appSettings: {
     'theme': '佈景主題',
     'uiFontSize': 'UI字型大小',
@@ -236,7 +238,7 @@ const Globals = {
     return (isPlatform('ios') && !isMacCatalyst()) || isPlatform('android');
   },
   dictItems,
-  getFileName,
+  chineseHerbsItems,
   getFileFromIndexedDB,
   saveFileToIndexedDB,
   removeFileFromIndexedDB,

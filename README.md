@@ -97,6 +97,8 @@ https://MrRogerHuang.github.io
 1. iOS Safari 13.4以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* 2.0.0:
+  * 支援中藥。
 * 1.3.0:
   * 設定頁新增"App設定與書籤"及"更新離線藥品資料"。
   * 初始下載離線資料UI加入進度條。

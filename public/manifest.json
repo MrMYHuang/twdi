@@ -22,8 +22,13 @@
       "icons": [{ "src": "assets/icon/icon.png", "sizes": "512x512" }]
     },
     {
-      "name": "搜尋藥品",
-      "url": "/dictionary",
+      "name": "搜尋西藥",
+      "url": "/dictionary/search",
+      "icons": [{ "src": "assets/icon/icon.png", "sizes": "512x512" }]
+    },
+    {
+      "name": "搜尋中藥",
+      "url": "/dictionary/searchCH",
       "icons": [{ "src": "assets/icon/icon.png", "sizes": "512x512" }]
     }
   ],
