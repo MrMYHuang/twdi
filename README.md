@@ -28,7 +28,7 @@
   <img src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/AppShortcuts.png' width='50%' />
 
 
-* App更新
+* <a id='update'>App更新</a>
 
   此app不定期發佈更新，包含新功能或bug修正。注意!App檔案更新後，要關閉、重啟1次app或所有瀏覧器app分頁才會載入新版程式。目前支援2種更新方式:
 
