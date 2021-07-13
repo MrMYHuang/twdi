@@ -18,14 +18,7 @@ var chineseHerbsItems: Array<ChineseHerbItem> = [];
 async function downloadTwdData(url: string, progressCallback: Function) {
   return new Promise((ok, fail) => {
     let twdData: any;
-    const dl = new DownloaderHelper(url, '.', {
-      headers: {
-        "Access-Control-Request-Method": "*",
-        "Access-Control-Request-Headers": "origin, x-requested-with",
-        "Origin": "https://mrrogerhuang.github.io",
-      },
-      mode: 'no-cors',
-    });
+    const dl = new DownloaderHelper(url, '.', {});
     let progressUpdateEnable = true;
     dl.on('progress', (stats: Stats) => {
       if (progressUpdateEnable) {

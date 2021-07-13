@@ -1,4 +1,4 @@
 #!/bin/bash
 cd ./pwa
 rm -rf *
-cp -r ../build/*.* ../build/.nojekyll . 
+cp -r ../build/* ../build/.nojekyll .
