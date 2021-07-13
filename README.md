@@ -65,11 +65,11 @@
 ### <a id='web-app'>從瀏覽器開啟/安裝</a>
 請用Chrome (Windows, macOS, Linux, Android作業系統使用者)、Safari (iOS (iPhone, iPad)使用者)瀏覽器開啟以下網址：
 
-https://MrRogerHuang.github.io
+https://myhpwa.github.io/twdi
 
 或：
 
-<a href='https://MrRogerHuang.github.io' target='_blank'>
+<a href='https://myhpwa.github.io/twdi' target='_blank'>
 <img width="auto" height='60px' src='https://user-images.githubusercontent.com/9122190/28998409-c5bf7362-7a00-11e7-9b63-db56694522e7.png'/>
 </a>
 
@@ -99,6 +99,10 @@ https://MrRogerHuang.github.io
 1. iOS Safari 13.4以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* 3.0.0:
+  * 修改程式，使 app 能運作在非根目錄下。
+  * 新版 PWA 網址：https://myhpwa.github.io/twdi
+  * 舊版網址將不再維護！
 * 2.0.0:
   * 支援中藥。
 * 1.3.0:

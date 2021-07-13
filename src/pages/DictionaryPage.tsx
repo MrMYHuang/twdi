@@ -132,7 +132,7 @@ class _DictionaryPage extends React.Component<PageProps, State> {
           onClick={async event => {
             event.preventDefault();
             this.props.history.push({
-              pathname: `/dictionary/${this.mode === 'searchCH' ? 'chineseHerb' : 'drug'}/${drugId}`,
+              pathname: `${Globals.pwaUrl}/dictionary/${this.mode === 'searchCH' ? 'chineseHerb' : 'drug'}/${drugId}`,
             });
           }}>
           <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
@@ -165,7 +165,7 @@ class _DictionaryPage extends React.Component<PageProps, State> {
 
             <IonButton fill='outline' shape='round' slot='start' onClick={ev => {
               this.props.history.push({
-                pathname: `/dictionary/${this.mode === 'searchCH' ? 'search' : 'searchCH'}`,
+                pathname: `${Globals.pwaUrl}/dictionary/${this.mode === 'searchCH' ? 'search' : 'searchCH'}`,
               });
             }}>
               <span className='uiFont'>{this.mode !== 'searchCH' ? '西藥' : '中藥'}</span>
@@ -189,7 +189,7 @@ class _DictionaryPage extends React.Component<PageProps, State> {
           <IonSearchbar ref={this.searchBarRef} placeholder='按Enter鍵搜尋' value={this.state.keyword}
             onIonClear={ev => {
               this.props.history.push({
-                pathname: `/dictionary/${this.mode}`,
+                pathname: `${Globals.pwaUrl}/dictionary/${this.mode}`,
               });
             }}
             onKeyUp={(ev: any) => {
@@ -201,7 +201,7 @@ class _DictionaryPage extends React.Component<PageProps, State> {
                   this.search(true);
                 } else {
                   this.props.history.push({
-                    pathname: `/dictionary/${this.mode}/${value}`,
+                    pathname: `${Globals.pwaUrl}/dictionary/${this.mode}/${value}`,
                   });
                 }
               }
@@ -227,7 +227,7 @@ class _DictionaryPage extends React.Component<PageProps, State> {
                       }
                       else {
                         this.props.history.push({
-                          pathname: `/dictionary/${this.mode}/${keyword}`,
+                          pathname: `${Globals.pwaUrl}/dictionary/${this.mode}/${keyword}`,
                         });
                       }
                     }}>

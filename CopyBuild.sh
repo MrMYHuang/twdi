@@ -1,4 +1,4 @@
 #!/bin/bash
-cd ./MrRogerHuang.github.io
+cd ./pwa
 rm -rf *
-cp -r ../build/* . 
+cp -r ../build/*.* ../build/.nojekyll . 

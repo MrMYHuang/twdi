@@ -1,7 +1,7 @@
 {
   "name": "twdi",
   "productName": "台灣藥品資訊",
-  "pwaVersion": "2.0.0",
+  "pwaVersion": "3.0.0",
   "version": "1.0.0",
   "license": "MIT",
   "keywords": [
@@ -22,8 +22,8 @@
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build && powershell -file CopyBuild.ps1",
-    "build_linux": "react-app-rewired build && ./CopyBuild.sh",
+    "build": "set PUBLIC_URL=/twdi && react-app-rewired build && powershell -file CopyBuild.ps1",
+    "build_linux": "PUBLIC_URL=/twdi react-app-rewired build && ./CopyBuild.sh",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "build-electron": "tsc -b tsconfigElectron.json",

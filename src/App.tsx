@@ -286,13 +286,15 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
     const routeMatches = /route=([^&]*)/.exec(window.location.search);
     const queryMatches = /query=([^&]*)/.exec(window.location.search);
     if (routeMatches !== null) {
+      const route = decodeURIComponent(routeMatches[1]);
+
       let query = ''
       if (queryMatches !== null) {
         query = decodeURIComponent(queryMatches[1]);
       }
-      return <Redirect to={routeMatches[1] + query} />;
-    } else if (window.location.pathname === '/') {
-      return <Redirect to="/bookmarks" />;
+      return <Redirect to={route + query} />;
+    } else if (window.location.pathname === `${Globals.pwaUrl}/`) {
+      return <Redirect to={`${Globals.pwaUrl}/bookmarks`} />;
     }
   }
 
@@ -303,22 +305,22 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
           <IonTabs>
             <IonRouterOutlet animated={false}>
               {/* The following route is for backward compatibility. */}
-              <Route path="/:tab(bookmarks)" render={(props: any) => <BookmarkPage {...props} />} exact={true} />
-              <Route path={`/:tab(dictionary)/:mode(search)/:keyword?`} render={(props: any) => <DictionaryPage {...props} />} exact={true} />
-              <Route path={`/:tab(dictionary)/:mode(searchCH)/:keyword?`} render={(props: any) => <DictionaryPage {...props} />} exact={true} />
-              <Route path={`/:tab(dictionary)/:mode(drug)/:keyword?`} render={(props: any) => <DrugPage {...props} />} exact={true} />
-              <Route path={`/:tab(dictionary)/:mode(chineseHerb)/:keyword?`} render={(props: any) => <DrugPage {...props} />} exact={true} />
-              <Route path="/settings" render={(props: any) => <SettingsPage {...props} />} />
-              <Route path="/" render={() => { return this.routeByQueryString(); }} exact={true} />
+              <Route path={`${Globals.pwaUrl}/:tab(bookmarks)`} render={(props: any) => <BookmarkPage {...props} />} exact={true} />
+              <Route path={`${Globals.pwaUrl}/:tab(dictionary)/:mode(search)/:keyword?`} render={(props: any) => <DictionaryPage {...props} />} exact={true} />
+              <Route path={`${Globals.pwaUrl}/:tab(dictionary)/:mode(searchCH)/:keyword?`} render={(props: any) => <DictionaryPage {...props} />} exact={true} />
+              <Route path={`${Globals.pwaUrl}/:tab(dictionary)/:mode(drug)/:keyword?`} render={(props: any) => <DrugPage {...props} />} exact={true} />
+              <Route path={`${Globals.pwaUrl}/:tab(dictionary)/:mode(chineseHerb)/:keyword?`} render={(props: any) => <DrugPage {...props} />} exact={true} />
+              <Route path={`${Globals.pwaUrl}/settings`} render={(props: any) => <SettingsPage {...props} />} />
+              <Route path={`${Globals.pwaUrl}`} render={() => { return this.routeByQueryString(); }} exact={true} />
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
-              <IonTabButton tab="bookmarks" href="/bookmarks">
+              <IonTabButton tab="bookmarks" href={`${Globals.pwaUrl}/bookmarks`}>
                 <IonIcon icon={bookmark} />
               </IonTabButton>
-              <IonTabButton tab="dictionay" href="/dictionary/search">
+              <IonTabButton tab="dictionay" href={`${Globals.pwaUrl}/dictionary/search`}>
                 <IonIcon icon={search} />
               </IonTabButton>
-              <IonTabButton tab="settings" href="/settings">
+              <IonTabButton tab="settings" href={`${Globals.pwaUrl}/settings`}>
                 <IonIcon icon={settings} />
               </IonTabButton>
             </IonTabBar>

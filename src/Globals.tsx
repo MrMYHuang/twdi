@@ -4,6 +4,7 @@ import { DownloaderHelper, Stats } from 'node-downloader-helper';
 import { ChineseHerbItem } from './models/ChineseHerbItem';
 import { DictItem } from './models/DictItem';
 
+const pwaUrl = process.env.PUBLIC_URL;
 const twdDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/全部藥品許可證資料集.zip`;
 const twchDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/中藥藥品許可證資料集.zip`;
 const twdiDb = 'twdiDb';
@@ -17,7 +18,14 @@ var chineseHerbsItems: Array<ChineseHerbItem> = [];
 async function downloadTwdData(url: string, progressCallback: Function) {
   return new Promise((ok, fail) => {
     let twdData: any;
-    const dl = new DownloaderHelper(url, '.');
+    const dl = new DownloaderHelper(url, '.', {
+      headers: {
+        "Access-Control-Request-Method": "*",
+        "Access-Control-Request-Headers": "origin, x-requested-with",
+        "Origin": "https://mrrogerhuang.github.io",
+      },
+      mode: 'no-cors',
+    });
     let progressUpdateEnable = true;
     dl.on('progress', (stats: Stats) => {
       if (progressUpdateEnable) {
@@ -193,6 +201,7 @@ function zhVoices() {
 }
 
 const Globals = {
+  pwaUrl,
   storeFile: 'Settings.json',
   fontSizeNorm: 24,
   fontSizeLarge: 48,
@@ -215,7 +224,7 @@ const Globals = {
       <IonLabel>
         <div>
           <div>連線失敗!</div>
-          <div style={{ fontSize: 'var(--ui-font-size)', paddingTop: 24 }}>如果問題持續發生，請執行<a href="/settings" target="_self">設定頁</a>的app異常回報功能。</div>
+          <div style={{ fontSize: 'var(--ui-font-size)', paddingTop: 24 }}>如果問題持續發生，請執行<a href={`/${pwaUrl}/settings`} target="_self">設定頁</a>的app異常回報功能。</div>
         </div>
       </IonLabel>
     </div>

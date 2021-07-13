@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Bookmark } from '../models/Bookmark';
 import { swapVertical } from 'ionicons/icons';
 import queryString from 'query-string';
+import Globals from '../Globals';
 
 interface Props {
   dispatch: Function;
@@ -45,10 +46,10 @@ class _BookmarkPage extends React.Component<PageProps, State> {
     let queryParams = queryString.parse(this.props.location.search) as any;
     if (queryParams.item && queryParams.item < this.props.bookmarks.length) {
       const bookmark = this.props.bookmarks[queryParams.item];
-      this.props.history.push(`/dictionary/${bookmark.isChineseHerb ? 'chineseHerb' : 'drug'}/${bookmark.uuid}`);
+      this.props.history.push(`${Globals.pwaUrl}/dictionary/${bookmark.isChineseHerb ? 'chineseHerb' : 'drug'}/${bookmark.uuid}`);
     } else if (!this.hasBookmark) {
       this.setState({ showToast: true, toastMessage: '無書籤！請搜尋藥品並加至書籤。' });
-      this.props.history.push(`/dictionary/search`);
+      this.props.history.push(`${Globals.pwaUrl}/dictionary/search`);
     }
     //console.log( 'view will enter' );
   }
@@ -65,7 +66,7 @@ class _BookmarkPage extends React.Component<PageProps, State> {
 
     if (!this.hasBookmark) {
       this.setState({ showToast: true, toastMessage: '無書籤！請搜尋藥品並加至書籤。' });
-      this.props.history.push(`/dictionary/search`);
+      this.props.history.push(`${Globals.pwaUrl}/dictionary/search`);
     }
   }
 
@@ -83,7 +84,7 @@ class _BookmarkPage extends React.Component<PageProps, State> {
     bookmarks.forEach((bookmark, i) => {
       let routeLink = ``;
       let label = `${bookmark.中文品名}`;
-      routeLink = `/dictionary/${bookmark.isChineseHerb ? 'chineseHerb' : 'drug'}/${bookmark.uuid}`;
+      routeLink = `${Globals.pwaUrl}/dictionary/${bookmark.isChineseHerb ? 'chineseHerb' : 'drug'}/${bookmark.uuid}`;
       rows.push(
         <IonItemSliding key={`bookmarkItemSliding_` + i}>
           <IonItem key={`bookmarkItem_` + i} button={true} onClick={async event => {
