@@ -200,6 +200,7 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
     dbOpenReq.onupgradeneeded = function (event: IDBVersionChangeEvent) {
       var db = (event.target as any).result;
       db.createObjectStore('store');
+      console.log(`DB store created.`);
     };
     this.loadTwdData();
   }
@@ -311,7 +312,7 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
               <Route path={`${Globals.pwaUrl}/:tab(dictionary)/:mode(drug)/:keyword?`} render={(props: any) => <DrugPage {...props} />} exact={true} />
               <Route path={`${Globals.pwaUrl}/:tab(dictionary)/:mode(chineseHerb)/:keyword?`} render={(props: any) => <DrugPage {...props} />} exact={true} />
               <Route path={`${Globals.pwaUrl}/settings`} render={(props: any) => <SettingsPage {...props} />} />
-              <Route path={`${Globals.pwaUrl}`} render={() => { return this.routeByQueryString(); }} exact={true} />
+              <Route path={`${Globals.pwaUrl}/`} render={() => { return this.routeByQueryString(); }} exact={true} />
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
               <IonTabButton tab="bookmarks" href={`${Globals.pwaUrl}/bookmarks`}>

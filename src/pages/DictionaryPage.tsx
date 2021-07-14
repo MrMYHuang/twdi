@@ -81,8 +81,8 @@ class _DictionaryPage extends React.Component<PageProps, State> {
 
   page = 0;
   rows = 20;
-  async search(newSearch: boolean = false) {
-    if (this.props.match.params.keyword == null || this.props.match.params.keyword !== this.state.keyword) {
+  search(newSearch: boolean = false) {
+    if (this.props.loadingTwdData || this.props.match.params.keyword == null || this.props.match.params.keyword !== this.state.keyword) {
       return;
     }
 
@@ -145,14 +145,7 @@ class _DictionaryPage extends React.Component<PageProps, State> {
     return rows;
   }
 
-  loadingTwdDataOld = true;
   render() {
-    if (this.loadingTwdDataOld && !this.props.loadingTwdData) {
-      this.search(true);
-    }
-
-    this.loadingTwdDataOld = this.props.loadingTwdData;
-
     return (
       <IonPage>
         <IonHeader>
@@ -222,8 +215,8 @@ class _DictionaryPage extends React.Component<PageProps, State> {
                   {this.props.dictionaryHistory.map((keyword, i) =>
                     <IonItem key={`dictHistoryItem_${i}`} button={true} onClick={async event => {
                       if (keyword === this.props.match.params.keyword) {
-                        this.setState({ keyword });
-                        this.search(true);
+//                        this.setState({ keyword });
+//                        this.search(true);
                       }
                       else {
                         this.props.history.push({

@@ -4,9 +4,16 @@ import { DownloaderHelper, Stats } from 'node-downloader-helper';
 import { ChineseHerbItem } from './models/ChineseHerbItem';
 import { DictItem } from './models/DictItem';
 
-const pwaUrl = process.env.PUBLIC_URL;
-const twdDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/全部藥品許可證資料集.zip`;
-const twchDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/中藥藥品許可證資料集.zip`;
+const pwaUrl = process.env.PUBLIC_URL || '';
+let twdDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/全部藥品許可證資料集.zip`;
+let twchDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/中藥藥品許可證資料集.zip`;
+
+if (process.env.NODE_ENV !== 'production') {
+  const corsProxyUrl = 'http://localhost:8080/';
+  twdDataUrl = twdDataUrl.replace(/(http|https):\/\//, corsProxyUrl);
+  twchDataUrl = twchDataUrl.replace(/(http|https):\/\//, corsProxyUrl);
+}
+
 const twdiDb = 'twdiDb';
 const twdDataKey = 'twdData';
 const twchDataKey = 'twchData';
@@ -49,17 +56,21 @@ async function getFileFromIndexedDB(fileName: string) {
     dbOpenReq.onsuccess = async function (ev) {
       const db = dbOpenReq.result;
 
-      const trans = db.transaction(["store"], 'readwrite');
-      let req = trans.objectStore('store').get(fileName);
-      req.onsuccess = async function (_ev) {
-        const data = req.result;
-        if (!data) {
-          console.error(`${fileName} loading failed!`);
-          console.error(new Error().stack);
-          return fail();
-        }
-        return ok(data);
-      };
+      try {
+        const trans = db.transaction(["store"], 'readwrite');
+        let req = trans.objectStore('store').get(fileName);
+        req.onsuccess = async function (_ev) {
+          const data = req.result;
+          if (!data) {
+            console.error(`${fileName} loading failed!`);
+            console.error(new Error().stack);
+            return fail();
+          }
+          return ok(data);
+        };
+      } catch (err) {
+        console.error(err);
+      }
     };
   });
 }
