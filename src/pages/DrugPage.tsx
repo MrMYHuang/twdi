@@ -69,9 +69,14 @@ class _DrugPage extends React.Component<PageProps, State> {
   }
 
   async lookupDict(keyword: string) {
-    if (this.props.loadingTwdData) {
-      return;
+    await new Promise<void>((ok, fail) => {
+      let timer = setInterval(() => {
+        if (!this.props.loadingTwdData) {
+          clearInterval(timer);
+          ok();
     }
+      }, 50);
+    });
 
     const chineseHerbIdPattern = new RegExp(`.*${keyword}`)
     const res = (this.mode !== 'chineseHerb' ? Globals.dictItems.find((dictItem) => dictItem.通關簽審文件編號 === keyword) : Globals.chineseHerbsItems.find((dictItem) => chineseHerbIdPattern.test(dictItem.許可證字號))) || null;

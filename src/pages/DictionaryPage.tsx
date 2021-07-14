@@ -81,8 +81,17 @@ class _DictionaryPage extends React.Component<PageProps, State> {
 
   page = 0;
   rows = 20;
-  search(newSearch: boolean = false) {
-    if (this.props.loadingTwdData || this.props.match.params.keyword == null || this.props.match.params.keyword !== this.state.keyword) {
+  async search(newSearch: boolean = false) {
+    await new Promise<void>((ok, fail) => {
+      let timer = setInterval(() => {
+        if (!this.props.loadingTwdData) {
+          clearInterval(timer);
+          ok();
+        }
+      }, 50);
+    });
+
+    if (this.props.match.params.keyword == null || this.props.match.params.keyword !== this.state.keyword) {
       return;
     }
 
