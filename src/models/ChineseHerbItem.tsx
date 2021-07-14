@@ -5,7 +5,7 @@ export class ChineseHerbItem {
     劑型與類別: string
     適應症及效能: string
     處方成分: string
-    單複方: string
+    "單/複方": string
     包裝: string
     藥商名稱: string
     製造商名稱: string
@@ -20,7 +20,7 @@ export class ChineseHerbItem {
         this.劑型與類別 = json.劑型與類別;
         this.適應症及效能 = json.適應症及效能;
         this.處方成分 = json.處方成分;
-        this.單複方 = json.單複方;
+        this["單/複方"] = json.單複方;
         this.包裝 = json.包裝;
         this.藥商名稱 = json.藥商名稱;
         this.製造商名稱 = json.製造商名稱;
@@ -34,7 +34,7 @@ export class ChineseHerbItem {
         "適應症及效能",
         "限制項目",
         "處方成分",
-        "單複方",
+        "單/複方",
         "劑型與類別",
         "包裝",
         "藥商名稱",
