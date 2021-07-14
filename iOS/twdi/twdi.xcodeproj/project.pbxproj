@@ -8,15 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		DBC713B2269D606400FCE5B0 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC713B1269D606400FCE5B0 /* Tests_iOS.swift */; };
-		DBC713BD269D606400FCE5B0 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC713BC269D606400FCE5B0 /* Tests_macOS.swift */; };
 		DBC713BF269D606400FCE5B0 /* twdiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC71396269D606300FCE5B0 /* twdiApp.swift */; };
-		DBC713C0269D606400FCE5B0 /* twdiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC71396269D606300FCE5B0 /* twdiApp.swift */; };
 		DBC713C1269D606400FCE5B0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC71397269D606300FCE5B0 /* ContentView.swift */; };
-		DBC713C2269D606400FCE5B0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC71397269D606300FCE5B0 /* ContentView.swift */; };
 		DBC713C3269D606400FCE5B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBC71398269D606400FCE5B0 /* Assets.xcassets */; };
-		DBC713C4269D606400FCE5B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBC71398269D606400FCE5B0 /* Assets.xcassets */; };
 		DBC713D5269D6AC300FCE5B0 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC713D4269D6AC300FCE5B0 /* WebViewController.swift */; };
-		DBC713D6269D6AC300FCE5B0 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC713D4269D6AC300FCE5B0 /* WebViewController.swift */; };
 		DBC713D9269D6B2C00FCE5B0 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DBC713D8269D6B2C00FCE5B0 /* SnapKit */; };
 /* End PBXBuildFile section */
 
@@ -28,13 +23,6 @@
 			remoteGlobalIDString = DBC7139C269D606400FCE5B0;
 			remoteInfo = "twdi (iOS)";
 		};
-		DBC713B9269D606400FCE5B0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DBC71391269D606300FCE5B0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DBC713A4269D606400FCE5B0;
-			remoteInfo = "twdi (macOS)";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -43,13 +31,9 @@
 		DBC71398269D606400FCE5B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBC7139D269D606400FCE5B0 /* twdi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = twdi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBC713A0269D606400FCE5B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DBC713A5269D606400FCE5B0 /* twdi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = twdi.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DBC713A7269D606400FCE5B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DBC713A8269D606400FCE5B0 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		DBC713AD269D606400FCE5B0 /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBC713B1269D606400FCE5B0 /* Tests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOS.swift; sourceTree = "<group>"; };
 		DBC713B3269D606400FCE5B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DBC713B8269D606400FCE5B0 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBC713BC269D606400FCE5B0 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		DBC713BE269D606400FCE5B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBC713D3269D608600FCE5B0 /* twdi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = twdi.entitlements; sourceTree = "<group>"; };
@@ -65,21 +49,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DBC713A2269D606400FCE5B0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DBC713AA269D606400FCE5B0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DBC713B5269D606400FCE5B0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -89,16 +59,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DBBD2A75269F1F42005363B8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DBC71390269D606300FCE5B0 = {
 			isa = PBXGroup;
 			children = (
 				DBC713D3269D608600FCE5B0 /* twdi.entitlements */,
 				DBC71395269D606300FCE5B0 /* Shared */,
 				DBC7139F269D606400FCE5B0 /* iOS */,
-				DBC713A6269D606400FCE5B0 /* macOS */,
 				DBC713B0269D606400FCE5B0 /* Tests iOS */,
 				DBC713BB269D606400FCE5B0 /* Tests macOS */,
 				DBC7139E269D606400FCE5B0 /* Products */,
+				DBBD2A75269F1F42005363B8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,9 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				DBC7139D269D606400FCE5B0 /* twdi.app */,
-				DBC713A5269D606400FCE5B0 /* twdi.app */,
 				DBC713AD269D606400FCE5B0 /* Tests iOS.xctest */,
-				DBC713B8269D606400FCE5B0 /* Tests macOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -130,15 +105,6 @@
 				DBC713A0269D606400FCE5B0 /* Info.plist */,
 			);
 			path = iOS;
-			sourceTree = "<group>";
-		};
-		DBC713A6269D606400FCE5B0 /* macOS */ = {
-			isa = PBXGroup;
-			children = (
-				DBC713A7269D606400FCE5B0 /* Info.plist */,
-				DBC713A8269D606400FCE5B0 /* macOS.entitlements */,
-			);
-			path = macOS;
 			sourceTree = "<group>";
 		};
 		DBC713B0269D606400FCE5B0 /* Tests iOS */ = {
@@ -182,23 +148,6 @@
 			productReference = DBC7139D269D606400FCE5B0 /* twdi.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DBC713A4269D606400FCE5B0 /* twdi (macOS) */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DBC713CA269D606400FCE5B0 /* Build configuration list for PBXNativeTarget "twdi (macOS)" */;
-			buildPhases = (
-				DBC713A1269D606400FCE5B0 /* Sources */,
-				DBC713A2269D606400FCE5B0 /* Frameworks */,
-				DBC713A3269D606400FCE5B0 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "twdi (macOS)";
-			productName = "twdi (macOS)";
-			productReference = DBC713A5269D606400FCE5B0 /* twdi.app */;
-			productType = "com.apple.product-type.application";
-		};
 		DBC713AC269D606400FCE5B0 /* Tests iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DBC713CD269D606400FCE5B0 /* Build configuration list for PBXNativeTarget "Tests iOS" */;
@@ -217,24 +166,6 @@
 			productReference = DBC713AD269D606400FCE5B0 /* Tests iOS.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		DBC713B7269D606400FCE5B0 /* Tests macOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DBC713D0269D606400FCE5B0 /* Build configuration list for PBXNativeTarget "Tests macOS" */;
-			buildPhases = (
-				DBC713B4269D606400FCE5B0 /* Sources */,
-				DBC713B5269D606400FCE5B0 /* Frameworks */,
-				DBC713B6269D606400FCE5B0 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DBC713BA269D606400FCE5B0 /* PBXTargetDependency */,
-			);
-			name = "Tests macOS";
-			productName = "Tests macOS";
-			productReference = DBC713B8269D606400FCE5B0 /* Tests macOS.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -247,16 +178,9 @@
 					DBC7139C269D606400FCE5B0 = {
 						CreatedOnToolsVersion = 12.5.1;
 					};
-					DBC713A4269D606400FCE5B0 = {
-						CreatedOnToolsVersion = 12.5.1;
-					};
 					DBC713AC269D606400FCE5B0 = {
 						CreatedOnToolsVersion = 12.5.1;
 						TestTargetID = DBC7139C269D606400FCE5B0;
-					};
-					DBC713B7269D606400FCE5B0 = {
-						CreatedOnToolsVersion = 12.5.1;
-						TestTargetID = DBC713A4269D606400FCE5B0;
 					};
 				};
 			};
@@ -277,9 +201,7 @@
 			projectRoot = "";
 			targets = (
 				DBC7139C269D606400FCE5B0 /* twdi (iOS) */,
-				DBC713A4269D606400FCE5B0 /* twdi (macOS) */,
 				DBC713AC269D606400FCE5B0 /* Tests iOS */,
-				DBC713B7269D606400FCE5B0 /* Tests macOS */,
 			);
 		};
 /* End PBXProject section */
@@ -293,22 +215,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DBC713A3269D606400FCE5B0 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DBC713C4269D606400FCE5B0 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DBC713AB269D606400FCE5B0 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DBC713B6269D606400FCE5B0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -328,29 +235,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DBC713A1269D606400FCE5B0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DBC713C2269D606400FCE5B0 /* ContentView.swift in Sources */,
-				DBC713D6269D6AC300FCE5B0 /* WebViewController.swift in Sources */,
-				DBC713C0269D606400FCE5B0 /* twdiApp.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DBC713A9269D606400FCE5B0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				DBC713B2269D606400FCE5B0 /* Tests_iOS.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DBC713B4269D606400FCE5B0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DBC713BD269D606400FCE5B0 /* Tests_macOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,11 +250,6 @@
 			isa = PBXTargetDependency;
 			target = DBC7139C269D606400FCE5B0 /* twdi (iOS) */;
 			targetProxy = DBC713AE269D606400FCE5B0 /* PBXContainerItemProxy */;
-		};
-		DBC713BA269D606400FCE5B0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DBC713A4269D606400FCE5B0 /* twdi (macOS) */;
-			targetProxy = DBC713B9269D606400FCE5B0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -500,7 +384,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.myhpwa.twdi;
 				PRODUCT_NAME = twdi;
 				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -525,58 +409,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.myhpwa.twdi;
 				PRODUCT_NAME = twdi;
 				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		DBC713CB269D606400FCE5B0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = XU8X8HU5ST;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = macOS/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.github.myhpwa.twdi;
-				PRODUCT_NAME = twdi;
-				SDKROOT = macosx;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		DBC713CC269D606400FCE5B0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = XU8X8HU5ST;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = macOS/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.github.myhpwa.twdi;
-				PRODUCT_NAME = twdi;
-				SDKROOT = macosx;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -625,50 +461,6 @@
 			};
 			name = Release;
 		};
-		DBC713D1269D606400FCE5B0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = XU8X8HU5ST;
-				INFOPLIST_FILE = "Tests macOS/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.myhpwa.Tests-macOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = "twdi (macOS)";
-			};
-			name = Debug;
-		};
-		DBC713D2269D606400FCE5B0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = XU8X8HU5ST;
-				INFOPLIST_FILE = "Tests macOS/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.myhpwa.Tests-macOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = "twdi (macOS)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -690,29 +482,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DBC713CA269D606400FCE5B0 /* Build configuration list for PBXNativeTarget "twdi (macOS)" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DBC713CB269D606400FCE5B0 /* Debug */,
-				DBC713CC269D606400FCE5B0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		DBC713CD269D606400FCE5B0 /* Build configuration list for PBXNativeTarget "Tests iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DBC713CE269D606400FCE5B0 /* Debug */,
 				DBC713CF269D606400FCE5B0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DBC713D0269D606400FCE5B0 /* Build configuration list for PBXNativeTarget "Tests macOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DBC713D1269D606400FCE5B0 /* Debug */,
-				DBC713D2269D606400FCE5B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
