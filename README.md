@@ -99,6 +99,8 @@ https://myhpwa.github.io/twdi
 1. iOS Safari 13.4以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* 3.0.2:
+  * 修正"更新離線藥品資料"進度顯示。
 * 3.0.0:
   * 修改程式，使 app 能運作在非根目錄下。
   * 新版 PWA 網址：https://myhpwa.github.io/twdi

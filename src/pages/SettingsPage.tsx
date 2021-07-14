@@ -68,7 +68,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
     for (let i = 0; i < Globals.durgResources.length; i++) {
       let item = Globals.durgResources[i];
       const twdData = await Globals.downloadTwdData(item.url, (progress: number) => {
-        this.setState({ twdDataDownloadRatio: i / Globals.durgResources.length + progress / 100 });
+        this.setState({ twdDataDownloadRatio: (i + (progress / 100)) / Globals.durgResources.length });
       });
       Globals.saveFileToIndexedDB(item.dataKey, twdData);
     }
