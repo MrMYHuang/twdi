@@ -14,21 +14,21 @@
       "purpose": "maskable"
     }
   ],
-  "start_url": "/",
+  "start_url": "/twdi",
   "shortcuts": [
     {
       "name": "第1書籤",
-      "url": "/bookmarks?item=0",
+      "url": "/twdi/bookmarks?item=0",
       "icons": [{ "src": "assets/icon/icon.png", "sizes": "512x512" }]
     },
     {
       "name": "搜尋西藥",
-      "url": "/dictionary/search",
+      "url": "/twdi/dictionary/search",
       "icons": [{ "src": "assets/icon/icon.png", "sizes": "512x512" }]
     },
     {
       "name": "搜尋中藥",
-      "url": "/dictionary/searchCH",
+      "url": "/twdi/dictionary/searchCH",
       "icons": [{ "src": "assets/icon/icon.png", "sizes": "512x512" }]
     }
   ],
