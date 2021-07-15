@@ -14,7 +14,8 @@
       "purpose": "maskable"
     }
   ],
-  "start_url": "/twdi",
+  "scope": "/twdi/",
+  "start_url": "/twdi/",
   "shortcuts": [
     {
       "name": "第1書籤",
