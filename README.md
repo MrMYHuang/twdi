@@ -56,9 +56,10 @@
 
 ## <a id='install'>安裝</a>
 
-此app目前有1種取得、安裝方式：
+此app目前有2種取得、安裝方式：
 
   1. Chrome、Safari網頁瀏覽器。
+  2. App 商店。
 
 建議採用第1種用瀏覽器安裝，以取得最完整的app功能體驗。安裝方法如下。
 
@@ -94,6 +95,32 @@ https://myhpwa.github.io/twdi
 3. App安裝完，出現在主畫面的圖示：
 
 <img src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/Safari/AppIcon.png' width='50%' />
+
+### <a id='storeApp'>從App商店安裝</a>
+#### Android - 使用Google Play Store
+<a href='https://play.google.com/store/apps/details?id=io.github.myhpwa.twdi' target='_blank'>
+<img width="auto" height='60px' alt='Google Play立即下載' src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/zh-tw_badge_web_generic.png'/>
+</a>
+
+#### iOS 14.0+ (iPhone), iPadOS 14.0+ (iPad) - 使用App Store
+<a href='https://apps.apple.com/us/app/id1576303166' target='_blank'>
+<img width="auto" height='60px' src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/Download_on_the_App_Store_Badge_CNTC_RGB_blk_100217.svg'/>
+</a>
+
+#### macOS 10.10+ - 使用App Store
+<a href='https://apps.apple.com/us/app/id1576303166' target='_blank'>
+<img width="auto" height='60px' src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/Download_on_the_Mac_App_Store_Badge_CNTC_RGB_blk_100217.svg'/>
+</a>
+
+#### Windows 10 - 使用Microsoft Store
+<a href='https://www.microsoft.com/store/apps/9N0Z88W4ZC93' target='_blank'>
+<img width="auto" height='60px' src='https://developer.microsoft.com/store/badges/images/Chinese-Traditional_get-it-from-MS.png' alt='Chinese Traditional badge'/>
+</a>
+
+#### Linux - 使用Snap Store
+<a href='https://snapcraft.io/twdi' target='_blank'>
+<img width="auto" height='60px' src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/[TW]-snap-store-black@2x.png' />
+</a>
 
 ## <a id='knownIssues'>已知問題</a>
 1. iOS Safari 13.4以上才支援"分享此頁"功能。
