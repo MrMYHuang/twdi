@@ -23,7 +23,6 @@
   1. 考量視力不佳的使用者，提供最大128 px的字型設定。若有需要更大字型，請E-mail或GitHub聯絡開發者新增。
 * <a id='shortcuts'>App捷徑</a>
   1. Windows, Android的Chrome(建議最新版)使用者，滑鼠右鍵或長按app圖示，可存取app功能捷徑，目前有：搜尋西藥、搜尋中藥、(開啟)第1書籤。
-  2. 不支援由Microsoft Store或Google Play Store下載的PWA!
 
   <img src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/AppShortcuts.png' width='50%' />
 
