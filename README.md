@@ -60,8 +60,6 @@
   1. Chrome、Safari網頁瀏覽器。
   2. App 商店。
 
-建議採用第1種用瀏覽器安裝，以取得最完整的app功能體驗。安裝方法如下。
-
 ### <a id='web-app'>從瀏覽器開啟/安裝</a>
 請用Chrome (Windows, macOS, Linux, Android作業系統使用者)、Safari (iOS (iPhone, iPad)使用者)瀏覽器開啟以下網址：
 
