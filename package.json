@@ -22,7 +22,7 @@
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "start": "react-app-rewired start",
-    "build": "set PUBLIC_URL=/twdi && react-app-rewired build && powershell -file CopyBuild.ps1",
+    "build": "set PUBLIC_URL=/twdi&& react-app-rewired build && powershell -file CopyBuild.ps1",
     "build_linux": "PUBLIC_URL=/twdi react-app-rewired build && ./CopyBuild.sh",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
