@@ -8,12 +8,6 @@ const pwaUrl = process.env.PUBLIC_URL || '';
 let twdDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/全部藥品許可證資料集.zip`;
 let twchDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/中藥藥品許可證資料集.zip`;
 
-if (process.env.NODE_ENV !== 'production') {
-  const corsProxyUrl = 'http://localhost:8080/';
-  twdDataUrl = twdDataUrl.replace(/(http|https):\/\//, corsProxyUrl);
-  twchDataUrl = twchDataUrl.replace(/(http|https):\/\//, corsProxyUrl);
-}
-
 const twdiDb = 'twdiDb';
 const twdDataKey = 'twdData';
 const twchDataKey = 'twchData';
@@ -197,15 +191,9 @@ function isMacCatalyst() {
   return isPlatform('ios') && navigator.platform === 'MacIntel';
 }
 
-function zhVoices() {
-  return speechSynthesis.getVoices().filter(v => ['zh-TW', 'zh_TW', 'zh-CN', 'zh_CN', 'zh-HK', 'zh_HK'].some(name => v.localService && v.lang.indexOf(name) > -1));
-}
-
 const Globals = {
   pwaUrl,
   storeFile: 'Settings.json',
-  fontSizeNorm: 24,
-  fontSizeLarge: 48,
   downloadTwdData,
   getLog,
   enableAppLog,
@@ -241,7 +229,7 @@ const Globals = {
     });
   },
   updateCssVars: (settings: any) => {
-    document.documentElement.style.cssText = `--ion-font-family: 'Times, Heiti TC, Noto Sans CJK TC'; --ui-font-size: ${settings.uiFontSize}px; --text-font-size: ${settings.fontSize}px`
+    document.documentElement.style.cssText = `--ui-font-size: ${settings.uiFontSize}px; --text-font-size: ${settings.fontSize}px`
   },
   isMacCatalyst,
   isTouchDevice: () => {
@@ -257,7 +245,6 @@ const Globals = {
   disableAndroidChromeCallout,
   disableIosSafariCallout,
   copyToClipboard,
-  zhVoices,
 };
 
 export default Globals;
