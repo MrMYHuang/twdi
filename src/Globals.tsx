@@ -236,7 +236,7 @@ const Globals = {
     return (isPlatform('ios') && !isMacCatalyst()) || isPlatform('android');
   },
   isStoreApps: () => {
-    return !isPlatform('pwa');
+    return isPlatform('pwa') || isPlatform('electron');
   },
   dictItems,
   chineseHerbsItems,
