@@ -24,7 +24,7 @@ class WebViewController: UIViewController {
     
     let jsonUriPrefix = "data:text/json;charset=utf-8,"
     #if DEBUG
-    let baseURL = URL(string: "http://localhost:3000")!
+    let baseURL = URL(string: "http://localhost:3000/twdi")!
     #else
     let baseURL = URL(string: "https://myhpwa.github.io/twdi")!
     #endif
