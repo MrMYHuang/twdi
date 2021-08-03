@@ -25,10 +25,14 @@ interface PageProps extends Props, RouteComponentProps<{
   path: string;
 }> { }
 
-const helpDoc = <>
-  <div style={{ fontSize: 'var(--ui-font-size)', textAlign: 'center' }}><a href="https://github.com/MrMYHuang/twdi#web-app" target="_new">程式安裝說明</a></div>
-  <div style={{ fontSize: 'var(--ui-font-size)', textAlign: 'center' }}><a href="https://github.com/MrMYHuang/twdi#shortcuts" target="_new">程式捷徑</a></div>
-</>;
+const helpDoc = Globals.isStoreApps() ?
+  <></>
+  :
+  <>
+    <div style={{ fontSize: 'var(--ui-font-size)', textAlign: 'center' }}><a href="https://github.com/MrMYHuang/twdi#web-app" target="_new">程式安裝說明</a></div>
+    <div style={{ fontSize: 'var(--ui-font-size)', textAlign: 'center' }}><a href="https://github.com/MrMYHuang/twdi#shortcuts" target="_new">程式捷徑</a></div>
+  </>
+  ;
 
 class _BookmarkPage extends React.Component<PageProps, State> {
   bookmarkListRef: React.RefObject<HTMLIonListElement>;

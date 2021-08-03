@@ -123,6 +123,9 @@ https://myhpwa.github.io/twdi
 1. iOS Safari 13.4以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* 3.0.7:
+  * 移除 store apps 不必要的 app 安裝連結。
+  * 移除設定頁 app 更新通知功能，以符合 Mac App Store 上架規範。
 * 3.0.5:
   * 修正分享功能在 iOS 異常的問題。
 * 3.0.4:

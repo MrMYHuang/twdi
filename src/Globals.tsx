@@ -235,6 +235,9 @@ const Globals = {
   isTouchDevice: () => {
     return (isPlatform('ios') && !isMacCatalyst()) || isPlatform('android');
   },
+  isStoreApps: () => {
+    return !isPlatform('pwa');
+  },
   dictItems,
   chineseHerbsItems,
   getFileFromIndexedDB,

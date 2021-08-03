@@ -89,11 +89,13 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
               <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
               <IonIcon icon={shareSocial} slot='start' />
               <IonLabel className='ion-text-wrap uiFont' onClick={async e => {
+                // Disable app update for Mac App Store submission.
+                /*
                 const hasUpdate = await Globals.updateApp();
 
                 if (!hasUpdate) {
-                  this.setState({ showToast: true, toastMessage: 'App已是最新版' });
-                }
+                  this.setState({ showToast: true, toastMessage: 'App 已是最新版' });
+                }*/
               }}>PWA版本: <a href="https://github.com/MrMYHuang/twdi#history" target="_new">{PackageInfos.pwaVersion}</a></IonLabel>
               <IonButton fill='outline' shape='round' slot='end' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={e => {
                 this.props.dispatch({
@@ -342,7 +344,6 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
               <IonIcon icon={helpCircle} slot='start' />
               <div style={{ fontSize: 'var(--ui-font-size)' }}>
                 <div>關於</div>
-                <div><a href="https://github.com/MrMYHuang/twdi#web-app" target="_new">程式安裝說明</a></div>
                 <div><a href="https://github.com/MrMYHuang/twdi" target="_new">操作說明與開放原始碼</a></div>
                 <div>作者: Meng-Yuan Huang</div>
                 <div><a href="mailto:myh@live.com" target="_new">myh@live.com</a></div>
