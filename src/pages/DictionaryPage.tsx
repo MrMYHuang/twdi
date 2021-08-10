@@ -96,7 +96,7 @@ class _DictionaryPage extends React.Component<PageProps, State> {
     }
 
     if (newSearch) {
-      const re = new RegExp(`.*${this.props.match.params.keyword}.*`);
+      const re = new RegExp(`.*${this.props.match.params.keyword}.*`, 'i');
       if (this.mode !== 'searchCH') {
         this.filteredData = Globals.dictItems.filter((dictItem) =>
           dictItem.通關簽審文件編號 !== "null" && (re.test(dictItem.中文品名) || re.test(dictItem.英文品名) || re.test(dictItem.通關簽審文件編號) || re.test(dictItem.製造商名稱) || re.test(dictItem.主成分略述))

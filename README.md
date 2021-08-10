@@ -123,6 +123,8 @@ https://myhpwa.github.io/twdi
 1. iOS Safari 13.4以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* 3.0.8:
+  * 修改搜尋英文名，不再分大小寫。
 * 3.0.7:
   * 移除 store apps 不必要的 app 安裝連結。
   * 移除設定頁 app 更新通知功能，以符合 Mac App Store 上架規範。
