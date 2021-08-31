@@ -5,6 +5,7 @@ import { ChineseHerbItem } from './models/ChineseHerbItem';
 import { DictItem } from './models/DictItem';
 
 const pwaUrl = process.env.PUBLIC_URL || '';
+const bugReportApiUrl = 'https://vh6ud1o56g.execute-api.ap-northeast-1.amazonaws.com/bugReportMailer';
 let twdDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/全部藥品許可證資料集.zip`;
 let twchDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/中藥藥品許可證資料集.zip`;
 
@@ -193,6 +194,7 @@ function isMacCatalyst() {
 
 const Globals = {
   pwaUrl,
+  bugReportApiUrl,
   storeFile: 'Settings.json',
   downloadTwdData,
   getLog,

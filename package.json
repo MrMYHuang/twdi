@@ -2,7 +2,7 @@
   "name": "twdi",
   "homepage": "/twdi",
   "productName": "台灣藥品",
-  "pwaVersion": "3.0.8",
+  "pwaVersion": "3.1.0",
   "version": "1.0.0",
   "license": "MIT",
   "keywords": [
@@ -40,14 +40,13 @@
     "extends": "react-app"
   },
   "dependencies": {
-    "@types/semver": "^7.3.7",
-    "adm-zip": "^0.5.5",
-    "axios": "^0.21.1",
     "electron-window-state": "^5.0.3",
-    "node-downloader-helper": "^1.0.18",
     "semver": "^7.3.5"
   },
   "devDependencies": {
+    "@types/semver": "^7.3.7",
+    "adm-zip": "^0.5.5",
+    "node-downloader-helper": "^1.0.18",
     "@ionic/react": "^5.6.11",
     "@ionic/react-router": "^5.6.11",
     "@testing-library/jest-dom": "^5.14.1",
@@ -63,6 +62,7 @@
     "@types/react-router": "^5.1.16",
     "@types/react-router-dom": "^5.1.8",
     "@types/uuid": "^8.3.1",
+    "axios": "^0.21.1",
     "customize-cra": "^1.0.0",
     "electron": "^11.4.10",
     "electron-builder": "^22.11.7",
