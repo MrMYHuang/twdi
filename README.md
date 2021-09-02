@@ -123,6 +123,8 @@ https://myhpwa.github.io/twdi
 1. iOS Safari 13.4以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* MAS 1.1.0:
+  * 支援 Universal app。
 * 3.1.0:
   * 修正錯誤回報功能異常的問題。
 * 3.0.8:
