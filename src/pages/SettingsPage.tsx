@@ -318,7 +318,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                     this.props.dispatch({
                       type: "SET_KEY_VAL",
                       key: 'uiFontSize',
-                      val: e.detail.value,
+                      val: +e.detail.value,
                     });
                     Globals.updateCssVars(this.props.settings);
                   }} />
@@ -334,7 +334,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                   this.props.dispatch({
                     type: "SET_KEY_VAL",
                     key: 'fontSize',
-                    val: e.detail.value,
+                    val: +e.detail.value,
                   });
                   Globals.updateCssVars(this.props.settings);
                 }} />
