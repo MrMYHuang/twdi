@@ -123,6 +123,10 @@ https://myhpwa.github.io/twdi
 1. iOS Safari 13.4以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* 3.2.0:
+  * 錯誤回報功能作 E-mail 檢查。
+  * 錯誤回報功能支援填寫問題發生步驟。
+  * 遷移舊設定檔至新檔。
 * Snap 1.1.0:
   * 支援 Linux arm64。
 * MAS 1.1.0:

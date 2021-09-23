@@ -2,14 +2,14 @@
   "name": "twdi",
   "homepage": "/twdi",
   "productName": "台灣藥品",
-  "pwaVersion": "3.1.0",
+  "pwaVersion": "3.2.0",
   "version": "1.1.0",
   "license": "MIT",
   "keywords": [
     "藥品",
     "Drug"
   ],
-  "description": "台灣藥品查詢app可查詢藥品全名、英文名、用法用量、主成分。App支援離線瀏覽、字型調整。",
+  "description": "台灣藥品查詢 app 可查詢藥品全名、英文名、用法用量、主成分。App 支援離線瀏覽、字型調整。",
   "repository": "https://github.com/MrMYHuang/twdi",
   "author": {
     "name": "Meng-Yuan Huang",

@@ -252,7 +252,7 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
       } else {
         console.error('navigator.wakeLock is undefined.');
       }
-    } catch (err) {
+    } catch (err: any) {
       // the wake lock request fails - usually system related, such low as battery
       console.log(`${err.name}, ${err.message}`);
       console.log(new Error().stack);
@@ -287,7 +287,7 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
         query = decodeURIComponent(queryMatches[1]);
       }
       return <Redirect to={route + query} />;
-    } else if (window.location.pathname === `${Globals.pwaUrl}/`) {
+    } else if (window.location.pathname === `${Globals.pwaUrl}/` || window.location.pathname === `${Globals.pwaUrl}`) {
       return <Redirect to={`${Globals.pwaUrl}/bookmarks`} />;
     }
   }

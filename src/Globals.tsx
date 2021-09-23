@@ -192,10 +192,19 @@ function isMacCatalyst() {
   return isPlatform('ios') && navigator.platform === 'MacIntel';
 }
 
+// Migrate old store file to new one.
+const oldStoreFile = 'Settings.json';
+const newStoreFile = 'twdiSettings.json';
+const savedSettingsStr = localStorage.getItem(oldStoreFile);
+if (savedSettingsStr != null) {
+  localStorage.setItem(newStoreFile, savedSettingsStr);
+  localStorage.removeItem(oldStoreFile);
+}
+
 const Globals = {
   pwaUrl,
   bugReportApiUrl,
-  storeFile: 'Settings.json',
+  storeFile: newStoreFile,
   downloadTwdData,
   getLog,
   enableAppLog,
@@ -207,7 +216,7 @@ const Globals = {
   ],
   appSettings: {
     'theme': '佈景主題',
-    'uiFontSize': 'UI字型大小',
+    'uiFontSize': 'UI 字型大小',
     'fontSize': '內容字型大小',
   } as Record<string, string>,
   fetchErrorContent: (
@@ -215,7 +224,7 @@ const Globals = {
       <IonLabel>
         <div>
           <div>連線失敗!</div>
-          <div style={{ fontSize: 'var(--ui-font-size)', paddingTop: 24 }}>如果問題持續發生，請執行<a href={`/${pwaUrl}/settings`} target="_self">設定頁</a>的app異常回報功能。</div>
+          <div style={{ fontSize: 'var(--ui-font-size)', paddingTop: 24 }}>如果問題持續發生，請執行<a href={`/${pwaUrl}/settings`} target="_self">設定頁</a>的 app 異常回報功能。</div>
         </div>
       </IonLabel>
     </div>
