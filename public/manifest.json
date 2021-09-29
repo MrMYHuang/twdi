@@ -18,7 +18,7 @@
   "start_url": "/twdi/",
   "url_handlers": [
     {
-      "origin": "https://myhpwa.github.io/twdi/"
+      "origin": "https://myhpwa.github.io"
     }
   ],
   "shortcuts": [
