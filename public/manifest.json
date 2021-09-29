@@ -16,6 +16,11 @@
   ],
   "scope": "/twdi/",
   "start_url": "/twdi/",
+  "url_handlers": [
+    {
+      "origin": "https://myhpwa.github.io/twdi/"
+    }
+  ],
   "shortcuts": [
     {
       "name": "第1書籤",
