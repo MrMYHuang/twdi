@@ -26,14 +26,6 @@
 
   <img src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/AppShortcuts.png' width='50%' />
 
-
-* <a id='update'>App更新</a>
-
-  此app不定期發佈更新，包含新功能或bug修正。注意!App檔案更新後，要關閉、重啟1次app或所有瀏覧器app分頁才會載入新版程式。目前支援2種更新方式:
-
-  1. App啟動: app啟動後，會自動檢查一次有無新版。
-  2. 手動: 至設定頁，按"PWA版本"文字。
-
 * <a id='report'>App異常回報</a>
 
   App設定頁的異常回報鈕使用方法為：執行會造成app異常的步驟後，再至設定頁按下異常回報鈕，即會自動產生一封E-mail，包含異常的記錄，發送此E-mail給我們即可。
@@ -123,6 +115,8 @@ https://myhpwa.github.io/twdi
 1. iOS Safari 13.4以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* PWA 3.2.3:
+  * [修正] 網址分享在新電腦開啟異常。
 * PWA 3.2.2:
   * [修正] setState, dispatch 相關狀態更新 bugs。
 * 3.2.0:

@@ -9,4 +9,5 @@ export class Settings {
     voiceURI: string | null = null;
     speechRate: number = 0.8;
     bookmarks: Bookmark[] = [];
+    dictionaryHistory: string[] = [];
 }
