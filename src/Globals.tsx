@@ -21,17 +21,8 @@ async function downloadTwdData(url: string, progressCallback: Function) {
   return new Promise((ok, fail) => {
     let twdData: any;
     const dl = new DownloaderHelper(url, '.', {});
-    let progressUpdateEnable = true;
     dl.on('progress', (stats: Stats) => {
-      if (progressUpdateEnable) {
-        // Reduce number of this calls by progressUpdateEnable.
-        // Too many of this calls could result in 'end' event callback is executed before 'progress' event callbacks!
-        progressCallback(stats.progress);
-        progressUpdateEnable = false;
-        setTimeout(() => {
-          progressUpdateEnable = true;
-        }, 100);
-      }
+      progressCallback(stats.progress);
     });
     dl.on('end', (downloadInfo: any) => {
       dl.removeAllListeners();

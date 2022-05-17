@@ -215,11 +215,8 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
       try {
         twdData = await Globals.getFileFromIndexedDB(item.dataKey);
       } catch (err) {
-        this.setState({ downloadModal: { item: item.item, show: true, progress: 0 } });
-        twdData = await Globals.downloadTwdData(item.url, (progress: number) => {
-          this.setState({ downloadModal: { item: item.item, show: progress < 100, progress: progress } });
+        twdData = await Globals.downloadTwdData(item.url, async (progress: number) => {
         });
-        this.setState({ downloadModal: { item: item.item, show: false, progress: 100 } });
         Globals.saveFileToIndexedDB(item.dataKey, twdData);
       }
 
