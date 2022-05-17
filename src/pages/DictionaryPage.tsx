@@ -58,8 +58,9 @@ class _DictionaryPage extends React.Component<PageProps, State> {
     //console.log(`${this.props.match.url} will enter`);
     this.mode = this.props.match.params.mode;
     const keyword = this.props.match.params.keyword;
-    this.setState({ keyword: keyword });
-    this.search(true);
+    this.setState({ keyword: keyword }, () => {
+      this.search(true);
+    });
   }
 
   /*
@@ -115,7 +116,8 @@ class _DictionaryPage extends React.Component<PageProps, State> {
 
     this.page += 1;
     this.setState({
-      fetchError: false, searches: newSearch ? searches : [...this.state.searches, ...searches],
+      fetchError: false,
+      searches: newSearch ? searches : [...this.state.searches, ...searches],
       isScrollOn: this.state.searches.length < this.filteredData.length,
     });
 
@@ -196,17 +198,18 @@ class _DictionaryPage extends React.Component<PageProps, State> {
             }}
             onKeyUp={(ev: any) => {
               const value = ev.target.value;
-              this.setState({ keyword: value })
-              if (value === '') {
-              } else if (ev.key === 'Enter') {
-                if (value === this.props.match.params.keyword) {
-                  this.search(true);
-                } else {
-                  this.props.history.push({
-                    pathname: `${Globals.pwaUrl}/dictionary/${this.mode}/${value}`,
-                  });
+              this.setState({ keyword: value }, () => {
+                if (value === '') {
+                } else if (ev.key === 'Enter') {
+                  if (value === this.props.match.params.keyword) {
+                    this.search(true);
+                  } else {
+                    this.props.history.push({
+                      pathname: `${Globals.pwaUrl}/dictionary/${this.mode}/${value}`,
+                    });
+                  }
                 }
-              }
+              });
             }}
           />
 
@@ -224,8 +227,8 @@ class _DictionaryPage extends React.Component<PageProps, State> {
                   {this.props.dictionaryHistory.map((keyword, i) =>
                     <IonItem key={`dictHistoryItem_${i}`} button={true} onClick={async event => {
                       if (keyword === this.props.match.params.keyword) {
-//                        this.setState({ keyword });
-//                        this.search(true);
+                        //                        this.setState({ keyword });
+                        //                        this.search(true);
                       }
                       else {
                         this.props.history.push({
@@ -251,19 +254,19 @@ class _DictionaryPage extends React.Component<PageProps, State> {
                 </div>
               </>
               :
-                <IonList>
-                  {this.getRows()}
-                  <IonInfiniteScroll threshold="100px"
-                    disabled={!this.state.isScrollOn}
-                    onIonInfinite={(ev: CustomEvent<void>) => {
-                      this.search();
-                      (ev.target as HTMLIonInfiniteScrollElement).complete();
-                    }}>
-                    <IonInfiniteScrollContent
-                      loadingText="載入中...">
-                    </IonInfiniteScrollContent>
-                  </IonInfiniteScroll>
-                </IonList>
+              <IonList>
+                {this.getRows()}
+                <IonInfiniteScroll threshold="100px"
+                  disabled={!this.state.isScrollOn}
+                  onIonInfinite={(ev: CustomEvent<void>) => {
+                    this.search();
+                    (ev.target as HTMLIonInfiniteScrollElement).complete();
+                  }}>
+                  <IonInfiniteScrollContent
+                    loadingText="載入中...">
+                  </IonInfiniteScrollContent>
+                </IonInfiniteScroll>
+              </IonList>
           }
 
           <IonAlert

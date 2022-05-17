@@ -6,8 +6,8 @@ import { DictItem } from './models/DictItem';
 
 const pwaUrl = process.env.PUBLIC_URL || '';
 const bugReportApiUrl = 'https://vh6ud1o56g.execute-api.ap-northeast-1.amazonaws.com/bugReportMailer';
-let twdDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/全部藥品許可證資料集.zip`;
-let twchDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/中藥藥品許可證資料集.zip`;
+let twdDataUrl = `https://d23fxcqevt3np7.cloudfront.net/全部藥品許可證資料集.zip`;
+let twchDataUrl = `https://d23fxcqevt3np7.cloudfront.net/中藥藥品許可證資料集.zip`;
 
 const twdiDb = 'twdiDb';
 const twdDataKey = 'twdData';

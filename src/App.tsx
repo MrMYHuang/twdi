@@ -201,11 +201,6 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
   restoreAppSettings() {
     localStorage.setItem(Globals.storeFile, this.originalAppSettingsStr!);
     this.props.dispatch({ type: 'LOAD_SETTINGS' });
-    while (document.body.classList.length > 0) {
-      document.body.classList.remove(document.body.classList.item(0)!);
-    }
-    document.body.classList.toggle(`theme${this.props.settings.theme}`, true);
-    Globals.updateCssVars(this.props.settings);
   }
 
   async loadTwdData() {
@@ -389,7 +384,7 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
           cssClass='uiFont'
           isOpen={this.state.showRestoreAppSettingsToast}
           onDidDismiss={() => this.setState({ showRestoreAppSettingsToast: false })}
-          message={`已套用app連結中的設定，是否還原設定？`}
+          message={`已套用 app 連結中的設定，是否還原設定？`}
           buttons={[
             {
               text: '取消',

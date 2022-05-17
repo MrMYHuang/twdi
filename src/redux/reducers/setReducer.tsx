@@ -1,13 +1,22 @@
 import Globals from '../../Globals';
 import { Bookmark } from '../../models/Bookmark';
+import { Settings } from '../../models/Settings';
+
+function updateUi(newSettings: Settings) {
+  while (document.body.classList.length > 0) {
+    document.body.classList.remove(document.body.classList.item(0)!);
+  }
+  document.body.classList.toggle(`theme${newSettings.theme}`, true);
+  Globals.updateCssVars(newSettings);
+}
 
 // Used to store settings. They will be saved to file.
-export default function reducer(state = {
-}, action: any) {
+export default function reducer(state = new Settings(), action: any) {
   var newSettings = { ...state } as any;
   switch (action.type) {
     case "LOAD_SETTINGS":
       newSettings = JSON.parse(localStorage.getItem(Globals.storeFile)!).settings;
+      updateUi(newSettings);
       break;
     case "SET_KEY_VAL":
       var key = action.key;
@@ -48,22 +57,20 @@ export default function reducer(state = {
     }
     // @ts-ignore
     case "DEFAULT_SETTINGS":
-      newSettings = {};
-    // Don't use break here!
+      newSettings = new Settings();
+      updateUi(newSettings);
+      break;
     // eslint-disable-next-line
     default:
       if (Object.keys(newSettings).length === 0) {
-        newSettings = {};
+        newSettings = new Settings();
       }
-      // Setting default values.
-      // version is the setting file version.
-      var keys = ['version', 'hasAppLog', 'theme', 'fontSize', 'uiFontSize', 'voiceURI', 'speechRate', 'bookmarks', 'dictionaryHistory'];
-      var vals = [1, 1, 0, 32, 24, null, 0.8, [], []];
-      for (let k = 0; k < keys.length; k++) {
-        if (newSettings[keys[k]] === undefined) {
-          newSettings[keys[k]] = vals[k];
+      const defaultSettings = new Settings();
+      Object.keys(defaultSettings).forEach(key => {
+        if ((newSettings as any)[key] === undefined) {
+          (newSettings as any)[key] = (defaultSettings as any)[key];
         }
-      }
+      });
   }
   return newSettings;
 }
