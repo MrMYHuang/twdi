@@ -1,6 +1,6 @@
 import Globals from '../../Globals';
 import { Bookmark } from '../../models/Bookmark';
-import { Settings } from '../../models/Settings';
+import { defaultSettings, Settings } from '../../models/Settings';
 
 function updateUi(newSettings: Settings) {
   while (document.body.classList.length > 0) {
@@ -11,7 +11,7 @@ function updateUi(newSettings: Settings) {
 }
 
 // Used to store settings. They will be saved to file.
-export default function reducer(state = new Settings(), action: any) {
+export default function reducer(state = { ...defaultSettings }, action: any) {
   var newSettings = { ...state } as any;
   switch (action.type) {
     case "LOAD_SETTINGS":
@@ -57,15 +57,14 @@ export default function reducer(state = new Settings(), action: any) {
     }
     // @ts-ignore
     case "DEFAULT_SETTINGS":
-      newSettings = new Settings();
+      newSettings = { ...defaultSettings };
       updateUi(newSettings);
       break;
     // eslint-disable-next-line
     default:
       if (Object.keys(newSettings).length === 0) {
-        newSettings = new Settings();
+        newSettings = { ...defaultSettings };
       }
-      const defaultSettings = new Settings();
       Object.keys(defaultSettings).forEach(key => {
         if ((newSettings as any)[key] === undefined) {
           (newSettings as any)[key] = (defaultSettings as any)[key];

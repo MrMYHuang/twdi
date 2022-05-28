@@ -220,9 +220,9 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                         JSON.parse(fileText);
                         localStorage.setItem(Globals.storeFile, fileText);
                         this.props.dispatch({ type: 'LOAD_SETTINGS' });
-                        setImmediate(() => {
+                        setTimeout(() => {
                           this.updateDrugData();
-                        });
+                        }, 0);
                       } catch (e) {
                         console.error(e);
                         console.error(new Error().stack);
@@ -328,9 +328,9 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                       key: 'uiFontSize',
                       val: +e.detail.value,
                     });
-                    setImmediate(() => {
+                    setTimeout(() => {
                       Globals.updateCssVars(this.props.settings);
-                    });
+                    }, 0);
                   }} />
                 </div>
               </div>
@@ -346,9 +346,9 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                     key: 'fontSize',
                     val: +e.detail.value,
                   });
-                  setImmediate(() => {
+                  setTimeout(() => {
                     Globals.updateCssVars(this.props.settings);
-                  });
+                  }, 0);
                 }} />
               </div>
             </IonItem>
@@ -423,7 +423,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
 
 const mapStateToProps = (state: any /*, ownProps*/) => {
   return {
-    settings: state.settings,
+    settings: JSON.parse(JSON.stringify(state.settings)),
     hasAppLog: state.settings.hasAppLog,
     theme: state.settings.theme,
     uiFontSize: state.settings.uiFontSize,

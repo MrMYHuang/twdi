@@ -1,4 +1,37 @@
-export class DictItem {
+export interface IDictItem {
+        通關簽審文件編號: string;
+        中文品名: string;
+        英文品名: string;
+        適應症: string;
+        劑型: string;
+        管制藥品分類級別: string;
+        用法用量: string;
+        包裝: string;
+        包裝與國際條碼: string;
+        有效日期: string;
+        發證日期: string;
+        許可證字號: string;
+        許可證種類: string;
+        舊證字號: string;
+        藥品類別: string;
+        主成分略述: string;
+        異動日期: string;
+    
+        申請商名稱: string;
+        申請商地址: string;
+        申請商統一編號: string;
+        製造商名稱: string;
+        製造廠國別: string;
+        製造廠廠址: string;
+        製造廠公司地址: string;
+    
+        製程: string;
+        註銷狀態: string;
+        註銷日期: string;
+        註銷理由: string;
+}
+
+export class DictItem implements IDictItem {
     通關簽審文件編號: string;
     中文品名: string;
     英文品名: string;

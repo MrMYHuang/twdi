@@ -89,11 +89,11 @@ class _DrugPage extends React.Component<PageProps, State> {
     const name = this.mode !== 'chineseHerb' ? (search as DictItem).中文品名 : (search as ChineseHerbItem).藥品名稱;
     this.props.dispatch({
       type: "ADD_BOOKMARK",
-      bookmark: new Bookmark({
+      bookmark: ({
         uuid: drugId,
         中文品名: name,
         isChineseHerb: this.mode === 'chineseHerb'
-      }),
+      }) as Bookmark,
     });
     this.setState({ showToast: true, toastMessage: '書籤新增成功！' });
     return;

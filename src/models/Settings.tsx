@@ -1,13 +1,25 @@
 import { Bookmark } from "./Bookmark";
 
-export class Settings {
-    version: number = 1;
-    hasAppLog: boolean = true;
-    theme: number = 0;
-    fontSize: number = 32;
-    uiFontSize: number = 24;
-    voiceURI: string | null = null;
-    speechRate: number = 0.8;
-    bookmarks: Bookmark[] = [];
-    dictionaryHistory: string[] = [];
+export interface Settings {
+    version: number;
+    hasAppLog: boolean;
+    theme: number;
+    fontSize: number;
+    uiFontSize: number;
+    voiceURI: string | null;
+    speechRate: number;
+    bookmarks: Bookmark[];
+    dictionaryHistory: string[];
+}
+
+export const defaultSettings = {
+    version: 1,
+    hasAppLog: true,
+    theme: 0,
+    fontSize: 32,
+    uiFontSize: 24,
+    voiceURI: null,
+    speechRate: 0.8,
+    bookmarks: [],
+    dictionaryHistory: [],
 }

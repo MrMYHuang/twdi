@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { IonContent, IonHeader, IonPage, IonToolbar, withIonLifeCycle, IonButton, IonIcon, IonSearchbar, IonAlert, IonList, IonItem, IonLabel, IonLoading, IonToast, IonTitle, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/react';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -135,7 +135,7 @@ class _DictionaryPage extends React.Component<PageProps, State> {
 
   getRows() {
     const data = this.state.searches;
-    let rows = Array<object>();
+    let rows = Array<ReactNode>();
     data.forEach((item: DictItem | ChineseHerbItem, index: number) => {
       const drugId = this.mode !== 'searchCH' ? (item as DictItem).通關簽審文件編號 : /[^\d]*(\d*)/.exec((item as ChineseHerbItem).許可證字號)![1];
       rows.push(
@@ -306,7 +306,7 @@ const DictionaryPage = withIonLifeCycle(_DictionaryPage);
 const mapStateToProps = (state: any /*, ownProps*/) => {
   return {
     loadingTwdData: state.tmpSettings.loadingTwdData,
-    dictionaryHistory: state.settings.dictionaryHistory,
+    dictionaryHistory: JSON.parse(JSON.stringify(state.settings.dictionaryHistory)),
   }
 };
 

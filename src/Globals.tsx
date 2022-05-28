@@ -1,6 +1,6 @@
 import { isPlatform, IonLabel } from '@ionic/react';
 import * as AdmZip from 'adm-zip';
-import { DownloaderHelper, Stats } from 'node-downloader-helper';
+import { DownloadEndedStats, DownloaderHelper, Stats } from 'node-downloader-helper';
 import { ChineseHerbItem } from './models/ChineseHerbItem';
 import { DictItem } from './models/DictItem';
 
@@ -24,7 +24,7 @@ async function downloadTwdData(url: string, progressCallback: Function) {
     dl.on('progress', (stats: Stats) => {
       progressCallback(stats.progress);
     });
-    dl.on('end', (downloadInfo: any) => {
+    dl.on('end', (downloadInfo: DownloadEndedStats) => {
       dl.removeAllListeners();
       const zip = new AdmZip.default(downloadInfo.filePath);
       const zipEntry = zip.getEntries()[0];
@@ -170,7 +170,7 @@ function disableIosSafariCallout(this: Window, event: any) {
   }
 }
 
-const webkit = (window as any).webkit;
+//const webkit = (window as any).webkit;
 function copyToClipboard(text: string) {
   try {
     navigator.clipboard && navigator.clipboard.writeText(text);

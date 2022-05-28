@@ -1,4 +1,4 @@
-export class ChineseHerbItem {
+export interface IChineseHerbItem {
     許可證字號: string
     限制項目: string
     藥品名稱: string
@@ -12,7 +12,23 @@ export class ChineseHerbItem {
     製造商地址: string
     發證日期: string
     有效日期: string
+}
 
+export class ChineseHerbItem implements IChineseHerbItem {
+    許可證字號: string
+    限制項目: string
+    藥品名稱: string
+    劑型與類別: string
+    適應症及效能: string
+    處方成分: string
+    "單/複方": string
+    包裝: string
+    藥商名稱: string
+    製造商名稱: string
+    製造商地址: string
+    發證日期: string
+    有效日期: string
+    
     constructor(json: any) {
         this.許可證字號 = json.許可證字號;
         this.限制項目 = json.限制項目;
