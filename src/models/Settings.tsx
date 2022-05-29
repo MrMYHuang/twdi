@@ -22,4 +22,4 @@ export const defaultSettings = {
     speechRate: 0.8,
     bookmarks: [],
     dictionaryHistory: [],
-}
+} as Settings;
