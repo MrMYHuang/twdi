@@ -1,9 +1,9 @@
 [Desktop Entry]
-Name=Taiwan Animal Adoption
-GenericName=Taiwan Animal Adoption
-Exec=twaa/twaa --no-sandbox
+Name=台灣藥品
+GenericName=台灣藥品
+Exec=twdi/twdi --no-sandbox
 Icon=${SNAP}/meta/gui/icon.png
 Type=Application
 Terminal=false
 Categories=None;
-StartupWMClass=twaa
+StartupWMClass=twdi
