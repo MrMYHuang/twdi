@@ -1,6 +1,6 @@
 import { isPlatform, IonLabel } from '@ionic/react';
 import * as AdmZip from 'adm-zip';
-import { DownloadEndedStats, DownloaderHelper, Stats } from 'node-downloader-helper';
+import { DownloadEndedStats, DownloaderHelper, ErrorStats, Stats } from 'node-downloader-helper';
 import { ChineseHerbItem } from './models/ChineseHerbItem';
 import { DictItem } from './models/DictItem';
 
@@ -30,6 +30,9 @@ async function downloadTwdData(url: string, progressCallback: Function) {
       const zipEntry = zip.getEntries()[0];
       twdData = JSON.parse(zipEntry.getData().toString("utf8"));
       ok(twdData);
+    });
+    dl.on('error', (stats: ErrorStats) => {
+      fail(`${stats.message}`);
     });
     dl.start();
   });

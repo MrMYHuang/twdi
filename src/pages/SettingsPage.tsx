@@ -1,20 +1,21 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonRange, IonIcon, IonLabel, IonToggle, IonButton, IonAlert, IonSelect, IonSelectOption, IonToast, withIonLifeCycle, IonProgressBar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonRange, IonIcon, IonLabel, IonToggle, IonButton, IonAlert, IonSelect, IonSelectOption, IonToast, withIonLifeCycle, IonProgressBar, IonLoading } from '@ionic/react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import Globals from '../Globals';
-import { helpCircle, text, refreshCircle, colorPalette, bug, download, informationCircle } from 'ionicons/icons';
+import { helpCircle, text, refreshCircle, colorPalette, bug, informationCircle, settings } from 'ionicons/icons';
 import axios from 'axios';
 
 import './SettingsPage.css';
 import PackageInfos from '../../package.json';
 import { Bookmark, } from '../models/Bookmark';
+import { Settings } from '../models/Settings';
 
 interface StateProps {
   showBugReportAlert: boolean;
   showFontLicense: boolean;
   twdDataDownloadRatio: number;
-  showUpdateDrugDataDone: boolean;
+  isDownloading: boolean;
   showClearAlert: boolean;
   showToast: boolean;
   toastMessage: string;
@@ -25,7 +26,7 @@ interface Props {
   hasAppLog: boolean;
   theme: number;
   uiFontSize: number;
-  settings: any;
+  settings: Settings;
   voiceURI: string;
   speechRate: number;
   bookmarks: [Bookmark];
@@ -47,7 +48,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
       showBugReportAlert: false,
       showFontLicense: false,
       twdDataDownloadRatio: 0,
-      showUpdateDrugDataDone: false,
+      isDownloading: false,
       showClearAlert: false,
       showToast: false,
       toastMessage: '',
@@ -68,15 +69,20 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
   }
 
   async updateDrugData() {
-    this.setState({ twdDataDownloadRatio: 0 });
-    for (let i = 0; i < Globals.durgResources.length; i++) {
-      let item = Globals.durgResources[i];
-      const twdData = await Globals.downloadTwdData(item.url, (progress: number) => {
-        this.setState({ twdDataDownloadRatio: (i + (progress / 100)) / Globals.durgResources.length });
-      });
-      Globals.saveFileToIndexedDB(item.dataKey, twdData);
+    this.setState({ isDownloading: true, twdDataDownloadRatio: 0 });
+    try {
+      for (let i = 0; i < Globals.durgResources.length; i++) {
+        let item = Globals.durgResources[i];
+        const twdData = await Globals.downloadTwdData(item.url, (progress: number) => {
+          this.setState({ twdDataDownloadRatio: (i + (progress / 100)) / Globals.durgResources.length });
+        });
+        Globals.saveFileToIndexedDB(item.dataKey, twdData);
+      }
+      this.setState({ isDownloading: false, twdDataDownloadRatio: 1, showToast: true, toastMessage: `離線藥品資料更新完畢！` });
+    } catch (error) {
+      console.error(error);
+      this.setState({ isDownloading: false, showToast: true, toastMessage: `${error}` })
     }
-    this.setState({ twdDataDownloadRatio: 1, showUpdateDrugDataDone: true });
   }
 
   reportText = '';
@@ -144,7 +150,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
               <IonIcon icon={bug} slot='start' />
               <IonLabel className='ion-text-wrap uiFont'>回報 app 異常記錄</IonLabel>
               <IonButton fill='outline' shape='round' slot='end' size='large' className='uiFont' onClick={e => {
-                this.reportText = "瀏覽器：" + navigator.userAgent + "\n\nApp版本：" + PackageInfos.pwaVersion + "\n\nApp設定：" + JSON.stringify(this.props.settings) + "\n\nLog：\n" + Globals.getLog();
+                this.reportText = "瀏覽器：" + navigator.userAgent + "\n\nApp 版本：" + PackageInfos.pwaVersion + "\n\nApp設定：" + JSON.stringify(this.props.settings) + "\n\nLog：\n" + Globals.getLog();
                 this.setState({ showBugReportAlert: true });
               }}>回報</IonButton>
               <IonAlert
@@ -152,7 +158,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                 backdropDismiss={false}
                 isOpen={this.state.showBugReportAlert}
                 header={'異常回報'}
-                subHeader='輸入您的 E-mail，以後續聯絡'
+                subHeader='輸入您的 E-mail，以後續聯絡(必填)'
                 inputs={[
                   {
                     name: 'name0',
@@ -199,10 +205,10 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
             </IonItem>
             <IonItem>
               <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
-              <IonIcon icon={download} slot='start' />
+              <IonIcon icon={settings} slot='start' />
               <div className='contentBlock'>
                 <div style={{ flexDirection: 'column' }}>
-                  <IonLabel className='ion-text-wrap uiFont'>App設定與書籤</IonLabel>
+                  <IonLabel className='ion-text-wrap uiFont'>App 設定與書籤</IonLabel>
                   <div style={{ textAlign: 'right' }}>
                     <IonButton fill='outline' shape='round' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={async (e) => {
                       const settingsJsonUri = `data:text/json;charset=utf-8,${encodeURIComponent(localStorage.getItem(Globals.storeFile) || '')}`;
@@ -230,10 +236,10 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                       (document.getElementById('importJsonInput') as HTMLInputElement).value = '';
                     }} />
 
-                    <IonButton fill='outline' shape='round' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={(e) => {
+                    <IonButton fill='outline' shape='round' size='large' className='uiFont' onClick={(e) => {
                       (document.querySelector('#importJsonInput') as HTMLInputElement).click();
                     }}>匯入</IonButton>
-                    <IonButton fill='outline' shape='round' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={(e) => {
+                    <IonButton fill='outline' shape='round' size='large' className='uiFont' onClick={(e) => {
                       this.setState({ showClearAlert: true });
                     }}>重置</IonButton>
                     <IonAlert
@@ -272,17 +278,25 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
               <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
               <IonIcon icon={refreshCircle} slot='start' />
               <div style={{ width: '100%' }}>
-                <IonLabel className='ion-text-wrap uiFont'>更新離線藥品資料</IonLabel>
+                <IonLabel className='ion-text-wrap uiFont'>離線藥品資料</IonLabel>
+                <IonLabel className='ion-text-wrap uiFont'>上次更新：{new Date(this.props.settings.drugDataDownloadDate).toLocaleDateString()}</IonLabel>
                 <IonProgressBar value={this.state.twdDataDownloadRatio} />
               </div>
               <IonButton fill='outline' shape='round' slot='end' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={async (e) => this.updateDrugData()}>更新</IonButton>
-              <IonToast
-                cssClass='uiFont'
-                isOpen={this.state.showUpdateDrugDataDone}
-                onDidDismiss={() => this.setState({ showUpdateDrugDataDone: false })}
-                message={`離線藥品資料更新完畢！`}
-                duration={2000}
-              />
+            </IonItem>
+            <IonItem>
+              <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
+              <IonIcon icon={refreshCircle} slot='start' />
+              <IonLabel className='ion-text-wrap uiFont'>啟用離線藥品更新通知</IonLabel>
+              <IonToggle slot='end' checked={this.props.settings.alertUpdateDrugData} onIonChange={e => {
+                const isChecked = e.detail.checked;
+
+                this.props.dispatch({
+                  type: "SET_KEY_VAL",
+                  key: 'alertUpdateDrugData',
+                  val: isChecked
+                });
+              }} />
             </IonItem>
             <IonItem>
               <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
@@ -407,6 +421,12 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
               </div>
             </IonItem>
           </IonList>
+
+          <IonLoading
+            cssClass='uiFont'
+            isOpen={this.state.isDownloading}
+            message={'下載中...'}
+          />
 
           <IonToast
             cssClass='uiFont'

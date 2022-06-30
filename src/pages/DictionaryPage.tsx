@@ -307,7 +307,7 @@ const mapStateToProps = (state: any /*, ownProps*/) => {
   return {
     loadingTwdData: state.tmpSettings.loadingTwdData,
     dictionaryHistory: JSON.parse(JSON.stringify(state.settings.dictionaryHistory)),
-  }
+  };
 };
 
 //const mapDispatchToProps = {};

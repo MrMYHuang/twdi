@@ -2,7 +2,7 @@
   "name": "twdi",
   "homepage": "/twdi",
   "productName": "台灣藥品",
-  "pwaVersion": "3.3.0",
+  "pwaVersion": "3.5.0",
   "version": "1.2.0",
   "license": "MIT",
   "keywords": [
@@ -22,8 +22,7 @@
   "main": "buildElectron/main.js",
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build && powershell -file CopyBuild.ps1",
-    "build_linux": "react-app-rewired build && ./CopyBuild.sh",
+    "build": "react-app-rewired build && node ./tools/build.js",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "build-electron": "tsc -b tsconfigElectron.json",
@@ -43,8 +42,8 @@
     "semver": "^7.3.5"
   },
   "devDependencies": {
-    "@ionic/react": "^6.0.16",
-    "@ionic/react-router": "^6.0.16",
+    "@ionic/react": "^6.1.12",
+    "@ionic/react-router": "^6.1.12",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",

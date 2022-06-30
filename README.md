@@ -1,4 +1,4 @@
-# 台灣藥品資訊(Taiwan Drug Info)
+# 台灣藥品資訊 (Taiwan Drug Info)
 
 ## <a id='feature'>特色</a>
 
@@ -6,7 +6,7 @@
 
 ## 說明
 
-台灣藥品資訊 (Taiwan Drug Info)，簡寫twdi，使用台灣政府開放資料之《全部藥品許可證資料集》，支援以下功能
+台灣藥品資訊 (Taiwan Drug Info)，簡寫 twdi，使用台灣政府開放資料之《全部藥品許可證資料集》，支援以下功能
 
 * <a id='search'>搜尋藥品</a>
   1. 西藥
@@ -14,23 +14,23 @@
 * <a id='bookmark'>書籤</a>
 * <a id='shareAppLink'>網址分享</a>
   1. 用瀏覽器開啟此app並開啟某藥品後，可複製其網址分享給別人開啟。
-  2. 也可以使用瀏覽器內建書籤功能儲存藥品網址。與app書籤功能相比，可以依個人使習慣作選擇。
-  3. App內建"分享此頁"功能，可複製藥品連結至作業系統剪貼簿或產生QR code，可分享給其他人。
+  2. 也可以使用瀏覽器內建書籤功能儲存藥品網址。與 app 書籤功能相比，可以依個人使習慣作選擇。
+  3. App 內建"分享此頁"功能，可複製藥品連結至作業系統剪貼簿或產生 QR code，可分享給其他人。
 
 * 離線瀏覽
 * 佈景主題切換
 * 字型調整
-  1. 考量視力不佳的使用者，提供最大128 px的字型設定。若有需要更大字型，請E-mail或GitHub聯絡開發者新增。
+  1. 考量視力不佳的使用者，提供最大 128 px 的字型設定。若有需要更大字型，請 E-mail 或 GitHub 聯絡開發者新增。
 * <a id='shortcuts'>App捷徑</a>
-  1. Windows, Android的Chrome(建議最新版)使用者，滑鼠右鍵或長按app圖示，可存取app功能捷徑，目前有：搜尋西藥、搜尋中藥、(開啟)第1書籤。
+  1. Windows, Android 的 Chrome (建議最新版)使用者，滑鼠右鍵或長按app圖示，可存取 app 功能捷徑，目前有：搜尋西藥、搜尋中藥、(開啟)第1書籤。
 
   <img src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/AppShortcuts.png' width='50%' />
 
-* <a id='report'>App異常回報</a>
+* <a id='report'>App 異常回報</a>
 
-  App設定頁的異常回報鈕使用方法為：執行會造成app異常的步驟後，再至設定頁按下異常回報鈕，即會自動產生一封E-mail，包含異常的記錄，發送此E-mail給我們即可。
+  App 設定頁的異常回報鈕使用方法為：執行會造成app異常的步驟後，再至設定頁按下異常回報鈕，即會自動產生一封E-mail，包含異常的記錄，發送此E-mail給我們即可。
 
-程式碼為開放(MIT License)，可自由下載修改、重新發佈。
+程式碼為開放 (MIT License)，可自由下載修改、重新發佈。
 
 ## 支援平台
 已在這些環境作過安裝、測試:
@@ -43,17 +43,17 @@
 
 非上述環境仍可嘗試使用此app。若有<a href='#knownIssues'>已知問題</a>未描述的問題，可用<a href='#report'>異常回報</a>功能。
 
-建議OS與Chrome、Safari保持在最新版，以取得最佳app體驗。
+建議 OS 與 Chrome、Safari 保持在最新版，以取得最佳app體驗。
 
 ## <a id='install'>安裝</a>
 
-此app目前有2種取得、安裝方式：
+此 app 目前有2種取得、安裝方式：
 
-  1. Chrome、Safari網頁瀏覽器。
+  1. Chrome, Safari 網頁瀏覽器。
   2. App 商店。
 
 ### <a id='web-app'>從瀏覽器開啟/安裝</a>
-請用Chrome (Windows, macOS, Linux, Android作業系統使用者)、Safari (iOS (iPhone, iPad)使用者)瀏覽器開啟以下網址：
+請用 Chrome (Windows, macOS, Linux, Android作業系統使用者)、Safari (iOS (iPhone, iPad)使用者)瀏覽器開啟以下網址：
 
 https://myhpwa.github.io/twdi
 
@@ -63,58 +63,62 @@ https://myhpwa.github.io/twdi
 <img width="auto" height='60px' src='https://user-images.githubusercontent.com/9122190/28998409-c5bf7362-7a00-11e7-9b63-db56694522e7.png'/>
 </a>
 
-此progressive web app (PWA)，可不安裝直接在網頁瀏覽器執行，或安裝至手機、平板、筆電、桌機。建議安裝，以避免瀏覽器定期清除快取，導致書籤資料不見！
+此 progressive web app (PWA)，可不安裝直接在網頁瀏覽器執行，或安裝至手機、平板、筆電、桌機。建議安裝，以避免瀏覽器定期清除快取，導致書籤資料不見！
 
-#### Windows, macOS, Linux, Android - 使用Chrome安裝
-使用Chrome瀏覧器（建議最新版）開啟上述PWA網址後，網址列會出現一個加號，如圖所示：
+#### Windows, macOS, Linux, Android - 使用 Chrome 安裝
+使用 Chrome 瀏覧器（建議最新版）開啟上述PWA網址後，網址列會出現一個加號，如圖所示：
 
 <img src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/ChromeInstall.png' width='50%' />
 
-點擊它，以完成安裝。安裝完後會在桌面出現"台灣藥品"app圖示。
+點擊它，以完成安裝。安裝完後會在桌面出現"台灣藥品" app圖示。
 
-#### iOS - 使用Safari安裝
-1. 使用Safari開啟web app網址，再點擊下方中間的"分享"圖示：
+#### iOS - 使用 Safari安裝
+1. 使用 Safari 開啟 web app 網址，再點擊下方中間的"分享"圖示：
 
 <img src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/Safari/OpenAppUrl.png' width='50%' />
 
-2. 滑動頁面至下方，點選"加入主畫面"(Add to Home Screen)：
+2. 滑動頁面至下方，點選"加入主畫面" (Add to Home Screen)：
 
 <img src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/Safari/AddToHomeScreen.png' width='50%' />
 
-3. App安裝完，出現在主畫面的圖示：
+3. App 安裝完，出現在主畫面的圖示：
 
 <img src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/Safari/AppIcon.png' width='50%' />
 
-### <a id='storeApp'>從App商店安裝</a>
+### <a id='storeApp'>從 App 商店安裝</a>
 #### Android - 使用Google Play Store
 <a href='https://play.google.com/store/apps/details?id=io.github.myhpwa.twdi' target='_blank'>
 <img width="auto" height='60px' alt='Google Play立即下載' src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/zh-tw_badge_web_generic.png'/>
 </a>
 
-#### iOS 14.0+ (iPhone), iPadOS 14.0+ (iPad) - 使用App Store
+#### iOS 14.0+ (iPhone), iPadOS 14.0+ (iPad) - 使用 App Store
 <a href='https://apps.apple.com/us/app/id1576303166' target='_blank'>
 <img width="auto" height='60px' src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/Download_on_the_App_Store_Badge_CNTC_RGB_blk_100217.svg'/>
 </a>
 
-#### macOS 10.10+ - 使用App Store
+#### macOS 10.10+ - 使用 App Store
 <a href='https://apps.apple.com/us/app/id1576303166' target='_blank'>
 <img width="auto" height='60px' src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/Download_on_the_Mac_App_Store_Badge_CNTC_RGB_blk_100217.svg'/>
 </a>
 
-#### Windows 10 - 使用Microsoft Store
+#### Windows 10 - 使用 Microsoft Store
 <a href='https://www.microsoft.com/store/apps/9N0Z88W4ZC93' target='_blank'>
 <img width="auto" height='60px' src='https://developer.microsoft.com/store/badges/images/Chinese-Traditional_get-it-from-MS.png' alt='Chinese Traditional badge'/>
 </a>
 
-#### Linux - 使用Snap Store
+#### Linux - 使用 Snap Store
 <a href='https://snapcraft.io/twdi' target='_blank'>
 <img width="auto" height='60px' src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/[TW]-snap-store-black@2x.png' />
 </a>
 
 ## <a id='knownIssues'>已知問題</a>
-1. iOS Safari 13.4以上才支援"分享此頁"功能。
+1. iOS Safari 13.4 以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* PWA 3.5.0:
+  * [新增] 設定頁顯示上次離線藥品更新時間。
+  * [新增] 設定頁"啟用離線藥品更新通知"。
+
 * PWA 3.3.0:
   * [優化] 更新套件。
 
@@ -164,7 +168,7 @@ https://myhpwa.github.io/twdi
 
 ## 隱私政策聲明
 
-此app無收集使用者個人資訊，也無收集匿名資訊。
+此 app 無收集使用者個人資訊，也無收集匿名資訊。
 
 ## 第三方軟體版權聲明
 

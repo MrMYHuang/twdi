@@ -2,6 +2,8 @@ import { Bookmark } from "./Bookmark";
 
 export interface Settings {
     version: number;
+    drugDataDownloadDate: string;
+    alertUpdateDrugData: boolean;
     hasAppLog: boolean;
     theme: number;
     fontSize: number;
@@ -14,6 +16,8 @@ export interface Settings {
 
 export const defaultSettings = {
     version: 1,
+    drugDataDownloadDate: new Date().toISOString(),
+    alertUpdateDrugData: true,
     hasAppLog: true,
     theme: 0,
     fontSize: 32,

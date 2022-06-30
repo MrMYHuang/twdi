@@ -42,6 +42,7 @@ import DictionaryPage from './pages/DictionaryPage';
 import ShareTextModal from './components/ShareTextModal';
 import DownloadModal from './components/DownloadModal';
 import DrugPage from './pages/DrugPage';
+import { Settings } from './models/Settings';
 
 const electronBackendApi: any = (window as any).electronBackendApi;
 
@@ -74,7 +75,7 @@ export var serviceWorkCallbacks = {
 interface Props {
   dispatch: Function;
   shareTextModal: any;
-  settings: any;
+  settings: Settings;
 }
 
 interface PageProps extends RouteComponentProps<{
@@ -281,6 +282,16 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
       return <Redirect to={`${Globals.pwaUrl}` + route + query} />;
     } else if (window.location.pathname === `${Globals.pwaUrl}/` || window.location.pathname === `${Globals.pwaUrl}`) {
       return <Redirect to={`${Globals.pwaUrl}/bookmarks`} />;
+    }
+  }
+
+  componentDidMount() {
+    const now = new Date();
+    const drugDataDownloadDate = new Date(this.props.settings.drugDataDownloadDate);
+    const timeDiff = now.getTime() - drugDataDownloadDate.getTime();
+    if (this.props.settings.alertUpdateDrugData &&
+      (timeDiff > 1000)) {
+      this.setState({ showToast: true, toastMessage: `離線藥品資料已 30 天未更新，可至設定頁更新。` });
     }
   }
 
