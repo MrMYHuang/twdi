@@ -290,7 +290,7 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
     const drugDataDownloadDate = new Date(this.props.settings.drugDataDownloadDate);
     const timeDiff = now.getTime() - drugDataDownloadDate.getTime();
     if (this.props.settings.alertUpdateDrugData &&
-      (timeDiff > 1000)) {
+      (timeDiff > 1000 * 60 * 60 * 24 * 30)) {
       this.setState({ showToast: true, toastMessage: `離線藥品資料已 30 天未更新，可至設定頁更新。` });
     }
   }
