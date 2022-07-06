@@ -31,7 +31,7 @@ class _ShareTextModal extends React.Component<PageProps, State> {
   }
 
   updateQrCode(isAppSettingsExport: boolean[]) {
-    const appSettingsExport = Object.keys(Globals.appSettings).filter((key, i) => this.state.isAppSettingsExport[i]).map((key, i) => { return { key: key, val: this.props.settings[key] }; });
+    const appSettingsExport = Object.keys(Globals.appSettings).filter((key, i) => isAppSettingsExport[i]).map((key, i) => { return { key: key, val: this.props.settings[key] }; });
     let appSettingsString: string | null = appSettingsExport.map(keyVal => `${keyVal.key}=${+keyVal.val}`).join(',');
     appSettingsString = appSettingsString !== '' ? `settings=${appSettingsString}` : null;
     let appUrl = this.props.text;

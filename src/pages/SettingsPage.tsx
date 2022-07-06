@@ -108,14 +108,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                 }
               }}>PWA版本: <a href="https://github.com/MrMYHuang/twdi#history" target="_new">{PackageInfos.pwaVersion}</a></IonLabel>
               <IonButton fill='outline' shape='round' slot='end' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={e => {
-                this.props.dispatch({
-                  type: "TMP_SET_KEY_VAL",
-                  key: 'shareTextModal',
-                  val: {
-                    show: true,
-                    text: window.location.origin,
-                  },
-                });
+                Globals.shareByLink(this.props.dispatch, decodeURIComponent(window.location.origin));
               }}>分享</IonButton>
             </IonItem>
             */}

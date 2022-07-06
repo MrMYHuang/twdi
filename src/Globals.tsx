@@ -188,6 +188,18 @@ function copyToClipboard(text: string) {
   }
 }
 
+function shareByLink(dispatch: Function, url: string = window.location.href) {
+  copyToClipboard(url);
+  dispatch({
+    type: 'TMP_SET_KEY_VAL',
+    key: 'shareTextModal',
+    val: {
+      show: true,
+      text: decodeURIComponent(url),
+    },
+  });
+}
+
 function isMacCatalyst() {
   return isPlatform('ios') && navigator.platform === 'MacIntel';
 }
@@ -259,6 +271,7 @@ const Globals = {
   disableAndroidChromeCallout,
   disableIosSafariCallout,
   copyToClipboard,
+  shareByLink,
 };
 
 export default Globals;

@@ -74,7 +74,7 @@ class _DrugPage extends React.Component<PageProps, State> {
         if (!this.props.loadingTwdData) {
           clearInterval(timer);
           ok();
-    }
+        }
       }, 50);
     });
 
@@ -132,14 +132,7 @@ class _DrugPage extends React.Component<PageProps, State> {
             <IonTitle style={{ fontSize: 'var(--ui-font-size)' }}>藥品資料</IonTitle>
 
             <IonButton fill="clear" slot='end' onClick={e => {
-              this.props.dispatch({
-                type: "TMP_SET_KEY_VAL",
-                key: 'shareTextModal',
-                val: {
-                  show: true,
-                  text: decodeURIComponent(window.location.href),
-                },
-              });
+              Globals.shareByLink(this.props.dispatch, decodeURIComponent(window.location.href));
             }}>
               <IonIcon icon={shareSocial} slot='icon-only' />
             </IonButton>
