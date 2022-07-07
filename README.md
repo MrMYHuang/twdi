@@ -115,6 +115,9 @@ https://myhpwa.github.io/twdi
 1. iOS Safari 13.4 以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* PWA 3.5.3:
+  * [修正] 在 iOS 有時無法更新的問題。
+
 * PWA 3.5.2:
   * [修正] 分享 app 連結未複製到剪貼簿的問題。
 

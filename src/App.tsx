@@ -68,6 +68,7 @@ setupIonicReact({
 });
 
 export var serviceWorkCallbacks = {
+  onLoad: function (registration: ServiceWorkerRegistration) { },
   onSuccess: function (registration: ServiceWorkerRegistration) { },
   onUpdate: function (registration: ServiceWorkerRegistration) { },
 };
@@ -327,11 +328,18 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
           cssClass='uiFont'
           isOpen={this.state.showUpdateAlert}
           backdropDismiss={false}
-          onDidPresent={(ev) => {
+          onDidPresent={async (ev) => {
             // Run SKIP_WAITING at onDidPresent event to avoid a race condition of
             // an old page fetching old JS chunks with a new service worker!
-            this.registrationNew?.installing?.postMessage({ type: 'SKIP_WAITING' });
-            this.registrationNew?.waiting?.postMessage({ type: 'SKIP_WAITING' });
+            try {
+              (await Globals.getServiceWorkerReg()).installing?.postMessage({ type: 'SKIP_WAITING' });
+              (await Globals.getServiceWorkerReg()).waiting?.postMessage({ type: 'SKIP_WAITING' });
+            } catch (error) {
+              console.error(error);
+            }
+
+            Globals.getServiceWorkerRegUpdated().installing?.postMessage({ type: 'SKIP_WAITING' });
+            Globals.getServiceWorkerRegUpdated().waiting?.postMessage({ type: 'SKIP_WAITING' });
           }}
           header={'App 已更新，請重啟!'}
           buttons={[
