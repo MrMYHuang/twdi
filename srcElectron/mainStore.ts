@@ -128,6 +128,10 @@ async function createWindow() {
 
   // Open the DevTools.
   //mainWindow.webContents.openDevTools()
+  mainWindow.on('close', () => {
+    ipcMain.removeAllListeners();
+    ipcMain.removeHandler('toMainV3');
+  });
 
   ipcMain.on('toMain', (ev, args) => {
     switch (args.event) {
@@ -135,6 +139,9 @@ async function createWindow() {
         mainWindow?.webContents.send('fromMain', { event: 'version', version: PackageInfos.version });
         break;
     }
+  });
+
+  ipcMain.handle('toMainV3', async (ev, args) => {
   });
 
   const clearListeners = () => {

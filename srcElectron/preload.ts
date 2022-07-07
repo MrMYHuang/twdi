@@ -1,7 +1,4 @@
 // All of the Node.js APIs are available in the preload process.
-
-import { removeListener } from "process";
-
 // It has the same sandbox as a Chrome extension.
 const {
   contextBridge,
@@ -43,6 +40,14 @@ contextBridge.exposeInMainWorld(
               // Deliberately strip event as it includes `sender` 
               ipcRenderer.once(channel, (event: any, ...args: any[]) => func(...args));
           }
+      },
+      invoke: (channel: string, data: any) => {
+          let validChannels = ["toMainV3"];
+          if (validChannels.includes(channel)) {
+              // Deliberately strip event as it includes `sender` 
+              return ipcRenderer.invoke(channel, data);
+          }
+          return Promise.reject('Invalid invoke channel.');
       },
       removeAllListeners: (channel: string) => {
         ipcRenderer.removeAllListeners(channel);
