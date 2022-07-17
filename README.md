@@ -28,7 +28,7 @@
 
 * <a id='report'>App 異常回報</a>
 
-  App 設定頁的異常回報鈕使用方法為：執行會造成app異常的步驟後，再至設定頁按下異常回報鈕，即會自動產生一封E-mail，包含異常的記錄，發送此E-mail給我們即可。
+  App 設定頁的異常回報鈕使用方法為：執行會造成 app 異常的步驟後，再至設定頁按下異常回報鈕，即會自動產生一封 E-mail，包含異常的記錄，發送此 E-mail 給我們即可。
 
 程式碼為開放 (MIT License)，可自由下載修改、重新發佈。
 
@@ -41,9 +41,9 @@
 * iPhone 8 + Safari
 * Debian Linux 10 + Chrome
 
-非上述環境仍可嘗試使用此app。若有<a href='#knownIssues'>已知問題</a>未描述的問題，可用<a href='#report'>異常回報</a>功能。
+非上述環境仍可嘗試使用此 app。若有<a href='#knownIssues'>已知問題</a>未描述的問題，可用<a href='#report'>異常回報</a>功能。
 
-建議 OS 與 Chrome、Safari 保持在最新版，以取得最佳app體驗。
+建議 OS 與 Chrome、Safari 保持在最新版，以取得最佳 app 體驗。
 
 ## <a id='install'>安裝</a>
 
@@ -86,9 +86,9 @@ https://myhpwa.github.io/twdi
 <img src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/Safari/AppIcon.png' width='50%' />
 
 ### <a id='storeApp'>從 App 商店安裝</a>
-#### Android - 使用Google Play Store
+#### Android - 使用 Google Play Store
 <a href='https://play.google.com/store/apps/details?id=io.github.myhpwa.twdi' target='_blank'>
-<img width="auto" height='60px' alt='Google Play立即下載' src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/zh-tw_badge_web_generic.png'/>
+<img width="auto" height='60px' alt='Google Play 立即下載' src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/zh-tw_badge_web_generic.png'/>
 </a>
 
 #### iOS 14.0+ (iPhone), iPadOS 14.0+ (iPad) - 使用 App Store
