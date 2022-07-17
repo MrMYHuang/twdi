@@ -92,12 +92,12 @@ https://myhpwa.github.io/twdi
 </a>
 
 #### iOS 14.0+ (iPhone), iPadOS 14.0+ (iPad) - 使用 App Store
-<a href='https://apps.apple.com/us/app/id1576303166' target='_blank'>
+<a href='https://apps.apple.com/app/id1576303166' target='_blank'>
 <img width="auto" height='60px' src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/Download_on_the_App_Store_Badge_CNTC_RGB_blk_100217.svg'/>
 </a>
 
 #### macOS 10.10+ - 使用 App Store
-<a href='https://apps.apple.com/us/app/id1576303166' target='_blank'>
+<a href='https://apps.apple.com/app/id1576303166' target='_blank'>
 <img width="auto" height='60px' src='https://github.com/MrMYHuang/twdi/raw/main/docs/images/Download_on_the_Mac_App_Store_Badge_CNTC_RGB_blk_100217.svg'/>
 </a>
 
