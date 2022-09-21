@@ -115,6 +115,9 @@ https://myhpwa.github.io/twdi
 1. iOS Safari 13.4 以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* PWA 3.5.5:
+  * [修正] 手動更新離線藥品資料後，上次更新日期未更新的問題。
+
 * PWA 3.5.4:
   * [修正] Chrome 瀏覽器開啟自動中翻英後，app 功能異常的 bug。
 

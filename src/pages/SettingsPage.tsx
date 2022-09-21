@@ -78,6 +78,13 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
         });
         Globals.saveFileToIndexedDB(item.dataKey, twdData);
       }
+      
+      this.props.dispatch({
+        type: "SET_KEY_VAL",
+        key: 'drugDataDownloadDate',
+        val: new Date().toISOString(),
+      });
+
       this.setState({ isDownloading: false, twdDataDownloadRatio: 1, showToast: true, toastMessage: `離線藥品資料更新完畢！` });
     } catch (error) {
       console.error(error);
