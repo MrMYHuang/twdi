@@ -10,6 +10,7 @@ import './SettingsPage.css';
 import PackageInfos from '../../package.json';
 import { Bookmark, } from '../models/Bookmark';
 import { Settings } from '../models/Settings';
+import IndexedDbFuncs from '../IndexedDbFuncs';
 
 interface StateProps {
   showBugReportAlert: boolean;
@@ -76,7 +77,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
         const twdData = await Globals.downloadTwdData(item.url, (progress: number) => {
           this.setState({ twdDataDownloadRatio: (i + (progress / 100)) / Globals.durgResources.length });
         });
-        Globals.saveFileToIndexedDB(item.dataKey, twdData);
+        IndexedDbFuncs.saveFile(item.dataKey, twdData);
       }
       
       this.props.dispatch({

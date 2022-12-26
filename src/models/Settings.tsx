@@ -2,6 +2,7 @@ import { Bookmark } from "./Bookmark";
 
 export interface Settings {
     version: number;
+    appInitialized: boolean;
     drugDataDownloadDate: string;
     alertUpdateDrugData: boolean;
     hasAppLog: boolean;
@@ -16,6 +17,7 @@ export interface Settings {
 
 export const defaultSettings = {
     version: 1,
+    appInitialized: false,
     drugDataDownloadDate: new Date().toISOString(),
     alertUpdateDrugData: true,
     hasAppLog: true,

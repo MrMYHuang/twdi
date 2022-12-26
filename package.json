@@ -2,7 +2,7 @@
   "name": "twdi",
   "homepage": "/twdi",
   "productName": "台灣藥品",
-  "pwaVersion": "3.5.5",
+  "pwaVersion": "3.7.0",
   "version": "1.2.0",
   "license": "MIT",
   "keywords": [
@@ -22,7 +22,7 @@
   "main": "buildElectron/main.js",
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build && node ./tools/build.js",
+    "build": "npm i && react-app-rewired build && node ./tools/build.js",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "build-electron": "tsc -b tsconfigElectron.json",

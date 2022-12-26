@@ -43,6 +43,7 @@ import ShareTextModal from './components/ShareTextModal';
 import DownloadModal from './components/DownloadModal';
 import DrugPage from './pages/DrugPage';
 import { Settings } from './models/Settings';
+import IndexedDbFuncs from './IndexedDbFuncs';
 
 const electronBackendApi: any = (window as any).electronBackendApi;
 
@@ -93,7 +94,6 @@ interface State {
   showToast: boolean;
   toastMessage: string;
   showUpdateAlert: boolean;
-  showDataDownloadEndAlert: boolean;
   showRestoreAppSettingsToast: boolean;
   downloadModal: any;
 }
@@ -159,7 +159,6 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
       showUpdateAlert: false,
       showRestoreAppSettingsToast: (queryParams.settings != null && this.originalAppSettingsStr != null) || false,
       showToast: false,
-      showDataDownloadEndAlert: false,
       toastMessage: '',
       downloadModal: { progress: 0, show: false }
     };
@@ -190,14 +189,13 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
       });
     }
 
-    const dbOpenReq = indexedDB.open(Globals.twdiDb);
-    // Init store in indexedDB if necessary.
-    dbOpenReq.onupgradeneeded = function (event: IDBVersionChangeEvent) {
-      var db = (event.target as any).result;
-      db.createObjectStore('store');
-      console.log(`DB store created.`);
-    };
-    this.loadTwdData();
+    IndexedDbFuncs.open().then(() => {
+      console.log(`IndexedDB opened.`);
+
+      if (this.props.settings.appInitialized) {
+        this.loadTwdData();
+      }
+    });
   }
 
   restoreAppSettings() {
@@ -215,11 +213,11 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
     for (let i = 0; i < Globals.durgResources.length; i++) {
       let item = Globals.durgResources[i];
       try {
-        twdData = await Globals.getFileFromIndexedDB(item.dataKey);
+        twdData = await IndexedDbFuncs.getFile(item.dataKey);
       } catch (err) {
         twdData = await Globals.downloadTwdData(item.url, async (progress: number) => {
         });
-        Globals.saveFileToIndexedDB(item.dataKey, twdData);
+        IndexedDbFuncs.saveFile(item.dataKey, twdData);
       }
 
       if (i === 0) {
@@ -355,6 +353,28 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
           ]}
         />
 
+        <IonAlert
+          cssClass='uiFont'
+          backdropDismiss={false}
+          isOpen={!this.props.settings.appInitialized}
+          header='初次啟動'
+          message='須下載離線資料，請按確定以繼續'
+          buttons={[
+            {
+              text: '確定',
+              cssClass: 'primary uiFont',
+              handler: async (value) => {
+                await this.loadTwdData();
+                this.props.dispatch({
+                  type: "SET_KEY_VAL",
+                  key: 'appInitialized',
+                  val: true,
+                });
+              },
+            },
+          ]}
+        />
+
         <ShareTextModal
           {...{
             text: this.props.shareTextModal?.text,
@@ -376,24 +396,6 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
             showModal: this.state.downloadModal.show,
             ...this.props
           }}
-        />
-
-        <IonAlert
-          cssClass='uiFont'
-          isOpen={this.state.showDataDownloadEndAlert}
-          backdropDismiss={false}
-          header={'藥品資料下載完成！'}
-          buttons={[
-            {
-              text: '關閉',
-              cssClass: 'primary uiFont',
-              handler: (value) => {
-                this.setState({
-                  showDataDownloadEndAlert: false,
-                });
-              },
-            },
-          ]}
         />
 
         <IonToast

@@ -1,6 +1,7 @@
 import { isPlatform, IonLabel } from '@ionic/react';
 import * as AdmZip from 'adm-zip';
 import { DownloadEndedStats, DownloaderHelper, ErrorStats, Stats } from 'node-downloader-helper';
+import IndexedDbFuncs from './IndexedDbFuncs';
 import { ChineseHerbItem } from './models/ChineseHerbItem';
 import { DictItem } from './models/DictItem';
 
@@ -38,94 +39,11 @@ async function downloadTwdData(url: string, progressCallback: Function) {
   });
 }
 
-async function getFileFromIndexedDB(fileName: string) {
-  const dbOpenReq = indexedDB.open(twdiDb);
-
-  return new Promise(function (ok, fail) {
-    dbOpenReq.onsuccess = async function (ev) {
-      const db = dbOpenReq.result;
-
-      try {
-        const trans = db.transaction(["store"], 'readwrite');
-        let req = trans.objectStore('store').get(fileName);
-        req.onsuccess = async function (_ev) {
-          const data = req.result;
-          if (!data) {
-            console.error(`${fileName} loading failed!`);
-            console.error(new Error().stack);
-            return fail();
-          }
-          return ok(data);
-        };
-      } catch (err) {
-        console.error(err);
-      }
-    };
-  });
-}
-
-async function saveFileToIndexedDB(fileName: string, data: any) {
-  const dbOpenReq = indexedDB.open(twdiDb);
-  return new Promise<void>((ok, fail) => {
-    dbOpenReq.onsuccess = async (ev: Event) => {
-      const db = dbOpenReq.result;
-
-      const transWrite = db.transaction(["store"], 'readwrite')
-      const reqWrite = transWrite.objectStore('store').put(data, fileName);
-      reqWrite.onsuccess = (_ev: any) => ok();
-      reqWrite.onerror = (_ev: any) => fail();
-    };
-  });
-}
-
-async function removeFileFromIndexedDB(fileName: string) {
-  const dbOpenReq = indexedDB.open(twdiDb);
-  return new Promise<void>((ok, fail) => {
-    try {
-      dbOpenReq.onsuccess = (ev: Event) => {
-        const db = dbOpenReq.result;
-
-        const transWrite = db.transaction(["store"], 'readwrite')
-        try {
-          const reqWrite = transWrite.objectStore('store').delete(fileName);
-          reqWrite.onsuccess = (_ev: any) => ok();
-          reqWrite.onerror = (_ev: any) => fail();
-        } catch (err) {
-          console.error(err);
-        }
-      };
-    } catch (err) {
-      fail(err);
-    }
-  });
-}
-
-async function clearIndexedDB() {
-  const dbOpenReq = indexedDB.open(twdiDb);
-  return new Promise<void>((ok, fail) => {
-    dbOpenReq.onsuccess = async (ev: Event) => {
-      const db = dbOpenReq.result;
-
-      const transWrite = db.transaction(["store"], 'readwrite')
-      const reqWrite = transWrite.objectStore('store').clear();
-      reqWrite.onsuccess = (_ev: any) => ok();
-      reqWrite.onerror = (_ev: any) => fail();
-    };
-  });
-}
+//const electronBackendApi: any = (window as any).electronBackendApi;
 
 async function clearAppData() {
   localStorage.clear();
-  await clearIndexedDB();
-}
-
-//const electronBackendApi: any = (window as any).electronBackendApi;
-
-function removeElementsByClassName(doc: Document, className: string) {
-  let elements = doc.getElementsByClassName(className);
-  while (elements.length > 0) {
-    elements[0].parentNode?.removeChild(elements[0]);
-  }
+  await IndexedDbFuncs.clear();
 }
 
 const consoleLog = console.log.bind(console);
@@ -297,11 +215,7 @@ const Globals = {
   },
   dictItems,
   chineseHerbsItems,
-  getFileFromIndexedDB,
-  saveFileToIndexedDB,
-  removeFileFromIndexedDB,
   clearAppData,
-  removeElementsByClassName,
   disableAndroidChromeCallout,
   disableIosSafariCallout,
   copyToClipboard,

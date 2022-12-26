@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
-import { IonContent, IonHeader, IonPage, IonToolbar, withIonLifeCycle, IonButton, IonIcon, IonSearchbar, IonAlert, IonList, IonItem, IonLabel, IonLoading, IonToast, IonTitle, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonToolbar, withIonLifeCycle, IonButton, IonIcon, IonSearchbar, IonAlert, IonList, IonItem, IonLabel, IonLoading, IonToast, IonTitle, IonInfiniteScroll, IonInfiniteScrollContent, IonInput } from '@ionic/react';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Globals from '../Globals';
-import { shareSocial, arrowBack } from 'ionicons/icons';
+import { shareSocial, arrowBack, search } from 'ionicons/icons';
 import { DictItem } from '../models/DictItem';
 import { ChineseHerbItem } from '../models/ChineseHerbItem';
 
@@ -32,7 +32,6 @@ interface State {
 }
 
 class _DictionaryPage extends React.Component<PageProps, State> {
-  searchBarRef: React.RefObject<HTMLIonSearchbarElement>;
   filteredData: Array<DictItem | ChineseHerbItem>;
   constructor(props: any) {
     super(props);
@@ -49,7 +48,6 @@ class _DictionaryPage extends React.Component<PageProps, State> {
       showToast: false,
       toastMessage: '',
     }
-    this.searchBarRef = React.createRef<HTMLIonSearchbarElement>();
     this.filteredData = [];
   }
 
@@ -133,6 +131,16 @@ class _DictionaryPage extends React.Component<PageProps, State> {
     return true;
   }
 
+  clickToSearch() {
+    if (this.state.keyword === this.props.match.params.keyword) {
+      this.search(true);
+    } else {
+      this.props.history.push({
+        pathname: `${Globals.pwaUrl}/dictionary/${this.mode}/${this.state.keyword}`,
+      });
+    }
+  }
+
   getRows() {
     const data = this.state.searches;
     let rows = Array<ReactNode>();
@@ -165,7 +173,7 @@ class _DictionaryPage extends React.Component<PageProps, State> {
               <IonIcon icon={arrowBack} slot='icon-only' />
             </IonButton>
 
-            <IonTitle style={{ fontSize: 'var(--ui-font-size)' }}>搜尋藥品</IonTitle>
+            <IonTitle className='uiFont'>搜尋藥品</IonTitle>
 
             <IonButton fill='outline' shape='round' slot='start' onClick={ev => {
               this.props.history.push({
@@ -175,7 +183,7 @@ class _DictionaryPage extends React.Component<PageProps, State> {
               <span className='uiFont'>{this.mode !== 'searchCH' ? '西藥' : '中藥'}</span>
             </IonButton>
 
-            <IonButton fill="clear" slot='end' onClick={e => {
+            <IonButton fill='clear' slot='end' onClick={e => {
               Globals.shareByLink(this.props.dispatch, decodeURIComponent(window.location.href));
             }}>
               <IonIcon icon={shareSocial} slot='icon-only' />
@@ -183,28 +191,34 @@ class _DictionaryPage extends React.Component<PageProps, State> {
           </IonToolbar>
         </IonHeader>
         <IonContent>
-          <IonSearchbar ref={this.searchBarRef} placeholder='按Enter鍵搜尋' value={this.state.keyword}
-            onIonClear={ev => {
-              this.props.history.push({
-                pathname: `${Globals.pwaUrl}/dictionary/${this.mode}`,
-              });
-            }}
-            onKeyUp={(ev: any) => {
-              const value = ev.target.value;
-              this.setState({ keyword: value }, () => {
-                if (value === '') {
-                } else if (ev.key === 'Enter') {
-                  if (value === this.props.match.params.keyword) {
-                    this.search(true);
-                  } else {
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <IonInput className='uiFont' placeholder='輸入後，按搜尋' value={this.state.keyword}
+              clearInput={(this.state.keyword?.length || 0) > 0}
+              onKeyUp={(ev: any) => {
+                const value = ev.target.value;
+                this.setState({ keyword: value }, () => {
+                  if (ev.key === 'Enter') {
+                    this.clickToSearch();
+                  }
+                });
+              }}
+              onIonChange={ev => {
+                const value = `${ev.target.value || ''}`;
+                this.setState({ keyword: value }, () => {
+                  if (value === '') {
                     this.props.history.push({
-                      pathname: `${Globals.pwaUrl}/dictionary/${this.mode}/${value}`,
+                      pathname: `${Globals.pwaUrl}/dictionary/${this.mode}`,
                     });
                   }
-                }
-              });
-            }}
-          />
+                });
+              }}
+            />
+            <IonButton fill='outline' size='large' onClick={() => {
+              this.clickToSearch();
+            }}>
+              <IonIcon slot='icon-only' icon={search} />
+            </IonButton>
+          </div>
 
           {this.props.loadingTwdData ?
             <IonLoading
@@ -213,7 +227,7 @@ class _DictionaryPage extends React.Component<PageProps, State> {
               message={'載入中...'}
             />
             :
-            this.props.match.params.keyword == null || this.state.searches.length < 1 || (this.props.dictionaryHistory.length > 0 && (this.state.keyword === '' || this.state.keyword === undefined)) ?
+            this.props.match.params.keyword == null ?
               <>
                 <div className='uiFont' style={{ color: 'var(--ion-color-primary)' }}>搜尋歷史</div>
                 <IonList>
@@ -247,19 +261,24 @@ class _DictionaryPage extends React.Component<PageProps, State> {
                 </div>
               </>
               :
-              <IonList>
-                {this.getRows()}
-                <IonInfiniteScroll threshold="100px"
-                  disabled={!this.state.isScrollOn}
-                  onIonInfinite={(ev: CustomEvent<void>) => {
-                    this.search();
-                    (ev.target as HTMLIonInfiniteScrollElement).complete();
-                  }}>
-                  <IonInfiniteScrollContent
-                    loadingText="載入中...">
-                  </IonInfiniteScrollContent>
-                </IonInfiniteScroll>
-              </IonList>
+              this.state.searches.length < 1 ?
+                <IonLabel className='uiFont'>
+                  ❌ 找不到搜尋藥品
+                </IonLabel>
+                :
+                <IonList>
+                  {this.getRows()}
+                  <IonInfiniteScroll threshold="100px"
+                    disabled={!this.state.isScrollOn}
+                    onIonInfinite={(ev: CustomEvent<void>) => {
+                      this.search();
+                      (ev.target as HTMLIonInfiniteScrollElement).complete();
+                    }}>
+                    <IonInfiniteScrollContent
+                      loadingText="載入中...">
+                    </IonInfiniteScrollContent>
+                  </IonInfiniteScroll>
+                </IonList>
           }
 
           <IonAlert
