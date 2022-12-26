@@ -1,11 +1,13 @@
 import React, { ReactNode } from 'react';
-import { IonContent, IonHeader, IonPage, IonToolbar, withIonLifeCycle, IonButton, IonIcon, IonSearchbar, IonAlert, IonList, IonItem, IonLabel, IonLoading, IonToast, IonTitle, IonInfiniteScroll, IonInfiniteScrollContent, IonInput } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonToolbar, withIonLifeCycle, IonButton, IonIcon, IonAlert, IonList, IonItem, IonLabel, IonLoading, IonToast, IonTitle, IonInfiniteScroll, IonInfiniteScrollContent, IonInput } from '@ionic/react';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Globals from '../Globals';
 import { shareSocial, arrowBack, search } from 'ionicons/icons';
 import { DictItem } from '../models/DictItem';
 import { ChineseHerbItem } from '../models/ChineseHerbItem';
+
+import './DictionaryPage.css';
 
 interface Props {
   dispatch: Function;
@@ -80,6 +82,7 @@ class _DictionaryPage extends React.Component<PageProps, State> {
 
   page = 0;
   rows = 20;
+  loadMoreLock = false;
   async search(newSearch: boolean = false) {
     await new Promise<void>((ok, fail) => {
       let timer = setInterval(() => {
@@ -93,6 +96,11 @@ class _DictionaryPage extends React.Component<PageProps, State> {
     if (this.props.match.params.keyword == null || this.props.match.params.keyword !== this.state.keyword) {
       return;
     }
+
+    if (this.loadMoreLock) {
+      return;
+    }
+    this.loadMoreLock = true;
 
     if (newSearch) {
       const re = new RegExp(`.*${this.props.match.params.keyword}.*`, 'i');
@@ -109,14 +117,17 @@ class _DictionaryPage extends React.Component<PageProps, State> {
     }
 
     console.log(`Loading page ${this.page}`);
+    const newAppendSearchesRangeEnd = Math.min((this.page + 1) * this.rows, this.filteredData.length);
+    const newAppendSearches = this.filteredData.slice(this.page * this.rows, newAppendSearchesRangeEnd);
+    const newSearches = newSearch ? newAppendSearches : [...this.state.searches, ...newAppendSearches];
 
-    const searches = this.filteredData.slice(this.page * this.rows, (this.page + 1) * this.rows);
-
-    this.page += 1;
     this.setState({
       fetchError: false,
-      searches: newSearch ? searches : [...this.state.searches, ...searches],
-      isScrollOn: this.state.searches.length < this.filteredData.length,
+      searches: newSearches,
+      isScrollOn: newSearches.length < this.filteredData.length,
+    }, () => {
+      this.page += 1;
+      this.loadMoreLock = false;
     });
 
     if (newSearch) {
@@ -155,9 +166,18 @@ class _DictionaryPage extends React.Component<PageProps, State> {
             });
           }}>
           <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
-          <IonLabel className='ion-text-wrap uiFont' key={`bookmarkItemLabel_` + index}>
-            {this.mode !== 'searchCH' ? (item as DictItem).中文品名 : (item as ChineseHerbItem).藥品名稱}
-          </IonLabel>
+          <div className='listItem'>
+            <div>
+              <IonLabel className='ion-text-wrap uiFont' key={`bookmarkItemLabel_` + index}>
+              {this.mode !== 'searchCH' ? (item as DictItem).中文品名 : (item as ChineseHerbItem).藥品名稱}
+              </IonLabel>
+            </div>
+            <div>
+              <IonLabel className='ion-text-wrap uiFontX0_7'>
+                {item.製造商名稱}
+              </IonLabel>
+            </div>
+          </div>
         </IonItem>
       );
     });
