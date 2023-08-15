@@ -115,6 +115,9 @@ https://myhpwa.github.io/twdi
 1. iOS Safari 13.4 以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* PWA 3.8.1:
+  * [修正] Chrome 115 下拉選單顯示異常。
+
 * PWA 3.8.0:
   * [新增] 藥品搜尋結果顯示製造商。
 
