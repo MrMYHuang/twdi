@@ -1,11 +1,11 @@
 import { isPlatform, IonLabel } from '@ionic/react';
-import * as AdmZip from 'adm-zip';
-import { DownloadEndedStats, DownloaderHelper, ErrorStats, Stats } from 'node-downloader-helper';
+import { unzipSync } from 'fflate';
 import IndexedDbFuncs from './IndexedDbFuncs';
 import { ChineseHerbItem } from './models/ChineseHerbItem';
 import { DictItem } from './models/DictItem';
 
-const pwaUrl = process.env.PUBLIC_URL || '';
+const baseUrl = import.meta.env.BASE_URL || '/';
+const pwaUrl = baseUrl.replace(/\/$/, '');
 const bugReportApiUrl = 'https://vh6ud1o56g.execute-api.ap-northeast-1.amazonaws.com/bugReportMailer';
 let twdDataUrl = `https://d23fxcqevt3np7.cloudfront.net/全部藥品許可證資料集.zip`;
 let twchDataUrl = `https://d23fxcqevt3np7.cloudfront.net/中藥藥品許可證資料集.zip`;
@@ -19,24 +19,51 @@ var dictItems: Array<DictItem> = [];
 var chineseHerbsItems: Array<ChineseHerbItem> = [];
 
 async function downloadTwdData(url: string, progressCallback: Function) {
-  return new Promise((ok, fail) => {
-    let twdData: any;
-    const dl = new DownloaderHelper(url, '.', {});
-    dl.on('progress', (stats: Stats) => {
-      progressCallback(stats.progress);
-    });
-    dl.on('end', (downloadInfo: DownloadEndedStats) => {
-      dl.removeAllListeners();
-      const zip = new AdmZip.default(downloadInfo.filePath);
-      const zipEntry = zip.getEntries()[0];
-      twdData = JSON.parse(zipEntry.getData().toString("utf8"));
-      ok(twdData);
-    });
-    dl.on('error', (stats: ErrorStats) => {
-      fail(`${stats.message}`);
-    });
-    dl.start();
-  });
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Download failed: ${response.status} ${response.statusText}`);
+  }
+
+  const total = Number(response.headers.get('content-length') || 0);
+  const reader = response.body?.getReader();
+  const chunks: Uint8Array[] = [];
+  let received = 0;
+
+  if (reader) {
+    progressCallback(0);
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      if (value) {
+        chunks.push(value);
+        received += value.length;
+        if (total > 0) {
+          progressCallback((received / total) * 100);
+        }
+      }
+    }
+  } else {
+    const buffer = await response.arrayBuffer();
+    chunks.push(new Uint8Array(buffer));
+  }
+
+  const size = chunks.reduce((sum, c) => sum + c.length, 0);
+  const data = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) {
+    data.set(chunk, offset);
+    offset += chunk.length;
+  }
+
+  const files = unzipSync(data);
+  const firstKey = Object.keys(files)[0];
+  if (!firstKey) {
+    throw new Error('Zip archive is empty.');
+  }
+  const jsonText = new TextDecoder('utf-8').decode(files[firstKey]);
+  const twdData = JSON.parse(jsonText);
+  progressCallback(100);
+  return twdData;
 }
 
 //const electronBackendApi: any = (window as any).electronBackendApi;
@@ -188,7 +215,7 @@ const Globals = {
       <IonLabel>
         <div>
           <div>連線失敗!</div>
-          <div style={{ fontSize: 'var(--ui-font-size)', paddingTop: 24 }}>如果問題持續發生，請執行<a href={`/${pwaUrl}/settings`} target="_self">設定頁</a>的 app 異常回報功能。</div>
+          <div style={{ fontSize: 'var(--ui-font-size)', paddingTop: 24 }}>如果問題持續發生，請執行<a href={`${pwaUrl}/settings`} target="_self">設定頁</a>的 app 異常回報功能。</div>
         </div>
       </IonLabel>
     </div>
