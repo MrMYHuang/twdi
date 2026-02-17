@@ -8,7 +8,7 @@ const baseUrl = import.meta.env.BASE_URL || '/';
 const pwaUrl = baseUrl.replace(/\/$/, '');
 const bugReportApiUrl = 'https://vh6ud1o56g.execute-api.ap-northeast-1.amazonaws.com/bugReportMailer';
 let twdDataUrl = `https://d1dhau3ezqw0u0.cloudfront.net/全部藥品許可證資料集.zip`;
-let twchDataUrl = `https://d23fxcqevt3np7.cloudfront.net/中藥藥品許可證資料集.zip`;
+let twchDataUrl = `https://d1dhau3ezqw0u0.cloudfront.net/中藥藥品許可證資料集.zip`;
 
 const twdiDb = 'twdiDb';
 const twdDataKey = 'twdData';
