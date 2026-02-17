@@ -6,7 +6,7 @@ import { DictItem } from './models/DictItem';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 const pwaUrl = baseUrl.replace(/\/$/, '');
-const bugReportApiUrl = 'https://vh6ud1o56g.execute-api.ap-northeast-1.amazonaws.com/bugReportMailer';
+const bugReportApiUrl = 'https://bug-report.mrmyh.eu.org/bugReportMailer';
 let twdDataUrl = `https://d1dhau3ezqw0u0.cloudfront.net/全部藥品許可證資料集.zip`;
 let twchDataUrl = `https://d1dhau3ezqw0u0.cloudfront.net/中藥藥品許可證資料集.zip`;
 
